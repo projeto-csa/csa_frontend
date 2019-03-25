@@ -3,7 +3,7 @@ import React from 'react'
 const RoutineListItem = (props) => {
 
   return(
-    <h3>{props.routine.nome}</h3>
+    <h3>{props.routine.name}</h3>
   )
 }
 

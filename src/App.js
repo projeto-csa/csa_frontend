@@ -7,6 +7,7 @@ import TestPage from './components/TestPage'
 import TopicList from './components/TopicList'
 import RoutineList from './components/RoutineList'
 import Routine from './components/Routine'
+import RoutineCreation from './components/RoutineCreation'
 import Topic from './components/Topic'
 import TopicCreation from './components/TopicCreation'
 import Register from './components/Register'
@@ -35,6 +36,7 @@ class App extends React.Component{
             <Route exact path="/topicos" component={TopicList} />
             <Route exact path="/topicCreation" component={TopicCreation} />
             <Route exact path="/rotinas" component={RoutineList} />
+            <Route exact path="/routineCreation" component={RoutineCreation} />
             <Route exact path="/perfil-csa" component={CSAProfile} />
             <Route path="/rotina/:routineId" component={Routine}/>
             <Route path="/topico/:topicoId" component={Topic} />

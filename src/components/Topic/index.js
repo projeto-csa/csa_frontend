@@ -3,7 +3,6 @@ import Response from '../Response'
 import ResponseForm from '../ResponseForm'
 import PostOwner from '../PostOwner'
 import answerRequest from './answerRequest'
-import request from './request'
 import RoutineList from '../RoutineList'
 
 class Topic extends React.Component {
@@ -27,10 +26,8 @@ class Topic extends React.Component {
   }
 
   render(){
-    console.log(this.state)
     const { topic } = this.state
     const { rotines } = this.state
-    console.log(topic.answers)
     return(
       <div className='Topic'>
         <h4>Rotinas relacionadas</h4>
