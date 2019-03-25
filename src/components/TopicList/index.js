@@ -12,27 +12,29 @@ class TopicList extends React.Component {
     super(props)
     this.state = {
       selectedTopic: {},
-      topicos: props.topicos,
+      topics: props.topics,
       newTopic: false
     }
-    if(!this.state.topicos) requestTopics(this.handleData)
+    if(!this.state.topics) requestTopics(this.handleData)
   }
 
   handleData = (data) => {
-    this.setState({topicos: data})
+    this.setState({topics: data})
   }
 
   newTopic = (value) => () => this.setState({newTopic: value})
 
   render(){
-    const { topicos } = this.state
+    const { topics } = this.state
     return(
       <div>
-        { topicos ?
-          this.state.topicos.map((item, index) =>
-          <Link to={{pathname: `/topico/${item._id}`, state: item}} key={index}>
-            <TopicListItem topic={item}/>
-          </Link>
+        { topics ?
+          this.state.topics.map((item, index) =>{
+            console.log(item)
+            return <Link to={{pathname: `/topic/${item._id}`, state: item}} key={index}>
+                    <TopicListItem topic={item}/>
+                   </Link>
+        }
         ) : null}
         <Button onClick={this.newTopic(true)}>Novo tópico</Button>
         {this.state.newTopic ? <Redirect to='/topicCreation' /> : null }

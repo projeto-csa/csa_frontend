@@ -10,10 +10,8 @@ class Topic extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      topic: props.location.state,
-      rotinas: undefined
+      rotines: undefined
     }
-    request(this.state.topic.rotina, this.handleData)
   }
 
   handleData = (data) => {
@@ -34,20 +32,24 @@ class Topic extends React.Component {
       <div className='Topic'>
         <h4>Rotinas relacionadas</h4>
         { rotinas ? <RoutineList rotinas={rotinas} /> : null }
-        <h1>{topic.titulo}</h1>
-        <PostOwner user={topic.user} createdAt={topic.createdAt}/>
-
-        <div>{topic.descricao}</div>
-        <hr/>
-        { topic.respostas ?
+        { topic ?
           <div>
-            {topic.respostas.map((item, index) =>
-              <Response response={item} key={index} />
-            )}
+            <h1>{topic.titulo}</h1>
+            <PostOwner user={topic.user} createdAt={topic.createdAt}/>
+
+            <div>{topic.descricao}</div>
+            <hr/>
+            { topic.respostas ?
+              <div>
+                {topic.respostas.map((item, index) =>
+                  <Response response={item} key={index} />
+                )}
+              </div>
+            : null
+            }
+            <ResponseForm onClick={answerRequest} topico={topic._id} newAnswer={this.newAnswer}/>
           </div>
-          : null
-        }
-        <ResponseForm onClick={answerRequest} topico={topic._id} newAnswer={this.newAnswer}/>
+        : null }
       </div>
     )
   }

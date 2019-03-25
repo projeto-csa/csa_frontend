@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const requestData = (handleData) => {
   axios
-    .get('http://localhost:1337/topicos', {
+    .get('http://localhost:1337/topics', {
       params: {
         _sort: 'createdAt:desc' // Generates http://localhost:1337/posts?_sort=createdAt:desc
       }
