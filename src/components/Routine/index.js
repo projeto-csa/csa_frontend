@@ -5,12 +5,10 @@ import request from './request'
 class Routine extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      routine: this.props.location.state
-    }
-    if(!this.state.routine){
-      request(this.props.match.params.routineId , this.handleData)
-    }
+    if(props.location)
+      this.state = {
+        routine: props.location.state
+      }
   }
 
   handleData = (data) =>{
@@ -19,19 +17,15 @@ class Routine extends React.Component {
 
   render(){
     const { routine } = this.state
-    console.log('routine: ', routine)
     return(
       <div className='Routine'>
         {routine ?
           (<div>
-            <h1>{routine.nome}</h1>
+            <h1>{routine.name}</h1>
             <h3>Descrição</h3>
-            <p>{routine.descricao}</p>
-            <h3>Metadados</h3>
-            <span>Routine ID: </span><span>{routine._id}</span>
-            <div>Routine creator</div>
+            <p>{routine.description}</p>
             <h2>Topicos relacionados</h2>
-            <TopicList topicos={routine.topicos}/>
+            <TopicList topics={routine.topics}/>
           </div>) :
           <div>
             Making request.......
@@ -41,8 +35,3 @@ class Routine extends React.Component {
 }
 
 export default Routine
-//
-
-
-//<ResponseList responses={props.routine.topicResponses} />
-//<ResponseForm onClick={responseFormStub} />

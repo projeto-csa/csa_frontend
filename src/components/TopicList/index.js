@@ -10,6 +10,7 @@ class TopicList extends React.Component {
 
   constructor(props){
     super(props)
+    console.log(props.topics)
     this.state = {
       selectedTopic: {},
       topics: props.topics,
@@ -30,7 +31,6 @@ class TopicList extends React.Component {
       <div>
         { topics ?
           this.state.topics.map((item, index) =>{
-            console.log(item)
             return <Link to={{pathname: `/topico/${item._id}`, state: item}} key={index}>
                     <TopicListItem topic={item}/>
                    </Link>
@@ -43,6 +43,3 @@ class TopicList extends React.Component {
   }
 }
 export default TopicList
-//${this.props.match.url}
-
-//${this.props.match.path}
