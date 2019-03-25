@@ -3,7 +3,7 @@ import React from 'react'
 const TopicListItem = (props) => {
 
   return(
-    <h3>{props.topic.titulo}</h3>
+    <h3>{props.topic.title}</h3>
   )
 }
 

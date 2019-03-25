@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-const requestData = (rotinas, handleData) => {
+const requestData = (topicId, handleData) => {
   axios
-    .get('http://localhost:1337/rotinas')
+    .get(`http://localhost:1337/topics/${topicId}`)
     .then(response => {
-      handleData(response.data.filter((item) => rotinas.includes(item._id) ))
+      handleData(response.data)
     })
     .catch(error =>{
       console.log(error)

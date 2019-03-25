@@ -9,45 +9,50 @@ import RoutineList from '../RoutineList'
 class Topic extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      topic: props.location.state,
-      rotinas: undefined
-    }
-    request(this.state.topic.rotina, this.handleData)
+    if(props.location)
+      this.state = {
+        topic: props.location.state
+      }
   }
 
   handleData = (data) => {
-    this.setState({rotinas: data})
+    this.setState({topic: data})
   }
 
   newAnswer = (answer) => {
     let temp = this.state.topic
-    if(!temp.respostas) temp.respostas = [answer]
-    else temp.respostas = [...temp.respostas, answer]
+    if(!temp.answers) temp.answers = []
+    temp.answers = [...temp.answers, answer]
     this.setState({topic: temp})
   }
 
   render(){
+    console.log(this.state)
     const { topic } = this.state
-    const { rotinas } = this.state
+    const { rotines } = this.state
+    console.log(topic.answers)
     return(
       <div className='Topic'>
         <h4>Rotinas relacionadas</h4>
-        { rotinas ? <RoutineList rotinas={rotinas} /> : null }
-        <h1>{topic.titulo}</h1>
-        <PostOwner user={topic.user} createdAt={topic.createdAt}/>
-
-        <div>{topic.descricao}</div>
-        <hr/>
-        { topic.respostas ?
+        { rotines ? <RoutineList rotinas={rotines} /> : null }
+        { topic ?
           <div>
-            {topic.respostas.map((item, index) =>
-              <Response response={item} key={index} />
-            )}
+            <h1>{topic.title}</h1>
+            <PostOwner user={topic.creator} createdAt={topic.createdAt}/>
+
+            <div>{topic.description}</div>
+            <hr/>
+            <div>
+            { topic.answers.length > 0 ?
+                topic.answers.map((item, index) =>
+                  <Response response={item} key={index} />
+                )
+            : 'Nenhuma resposta!'
+            }
+            </div>
+            <ResponseForm onClick={answerRequest} topic={topic._id} newAnswer={this.newAnswer}/>
           </div>
-          : null
-        }
-        <ResponseForm onClick={answerRequest} topico={topic._id} newAnswer={this.newAnswer}/>
+        : null }
       </div>
     )
   }
