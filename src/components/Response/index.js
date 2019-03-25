@@ -8,7 +8,7 @@ const Response = (props) => {
   return(
     <div className='Response'>
       <PostOwner user={props.response.user} createdAt={props.response.createdAt}/>
-      <p>{props.response.resposta}</p>
+      <p>{props.response.message}</p>
       { props.response.user._id === localStorage.getItem('user') ?
         <Button><DeleteIcon /></Button>
         : null

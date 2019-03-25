@@ -4,7 +4,7 @@ const answerRequest = (payload, handleData) => {
   console.log('payload', payload)
   axios({
         method: 'POST',
-        url: 'http://localhost:1337/respostas',
+        url: 'http://localhost:1337/answers',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         },

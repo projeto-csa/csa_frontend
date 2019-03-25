@@ -9,7 +9,7 @@ class TopicCreation extends React.Component {
     this.state = {
       title: '',
       description: '',
-      topicId: undefined
+      topic: undefined
     }
   }
 
@@ -20,7 +20,8 @@ class TopicCreation extends React.Component {
   }
 
   handleData = (data) => {
-    this.setState({topicId: data._id})
+    console.log('topic data:', data)
+    this.setState({topic: data})
   }
 
   onClick = () => {
@@ -41,7 +42,7 @@ class TopicCreation extends React.Component {
         <textarea placeholder='Insira a descrição' onChange={this.handleChange('description')}/><br/>
         <Button onClick={this.onClick}>Criar</Button>
         <Button>Cancelar</Button>
-        {this.state.topicId ? <Redirect to={`/topico/${this.state.topicId}`} /> : null}
+        {this.state.topic ? <Redirect to={{pathname:`/topico/${this.state.topic._id}`, state: this.state.topic}} /> : null}
       </div>
     )
   }

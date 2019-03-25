@@ -9,45 +9,48 @@ import RoutineList from '../RoutineList'
 class Topic extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      rotines: undefined
-    }
+    if(props.location)
+      this.state = {
+        topic: props.location.state
+      }
   }
 
   handleData = (data) => {
-    this.setState({rotinas: data})
+    this.setState({topic: data})
   }
 
   newAnswer = (answer) => {
     let temp = this.state.topic
-    if(!temp.respostas) temp.respostas = [answer]
-    else temp.respostas = [...temp.respostas, answer]
+    if(!temp.answers) temp.answers = []
+    temp.answers = [...temp.answers, answer]
     this.setState({topic: temp})
   }
 
   render(){
+    console.log(this.state)
     const { topic } = this.state
-    const { rotinas } = this.state
+    const { rotines } = this.state
+    console.log(topic.answers)
     return(
       <div className='Topic'>
         <h4>Rotinas relacionadas</h4>
-        { rotinas ? <RoutineList rotinas={rotinas} /> : null }
+        { rotines ? <RoutineList rotinas={rotines} /> : null }
         { topic ?
           <div>
-            <h1>{topic.titulo}</h1>
-            <PostOwner user={topic.user} createdAt={topic.createdAt}/>
+            <h1>{topic.title}</h1>
+            <PostOwner user={topic.creator} createdAt={topic.createdAt}/>
 
-            <div>{topic.descricao}</div>
+            <div>{topic.description}</div>
             <hr/>
-            { topic.respostas ?
-              <div>
-                {topic.respostas.map((item, index) =>
+            <div>
+            { topic.answers.length > 0 ?
+                topic.answers.map((item, index) =>
                   <Response response={item} key={index} />
-                )}
-              </div>
-            : null
+                )
+            : 'Nenhuma resposta!'
             }
-            <ResponseForm onClick={answerRequest} topico={topic._id} newAnswer={this.newAnswer}/>
+            </div>
+            <ResponseForm onClick={answerRequest} topic={topic._id} newAnswer={this.newAnswer}/>
           </div>
         : null }
       </div>

@@ -31,7 +31,7 @@ class TopicList extends React.Component {
         { topics ?
           this.state.topics.map((item, index) =>{
             console.log(item)
-            return <Link to={{pathname: `/topic/${item._id}`, state: item}} key={index}>
+            return <Link to={{pathname: `/topico/${item._id}`, state: item}} key={index}>
                     <TopicListItem topic={item}/>
                    </Link>
         }
