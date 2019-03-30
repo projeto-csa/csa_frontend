@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-import CommentBox from './components/CommentBox'
 import TestPage from './components/TestPage'
 import TopicList from './components/TopicList'
 import RoutineList from './components/RoutineList'
@@ -26,7 +25,6 @@ class App extends React.Component{
           <Navbar />
           <StyleWrapper>
             <Route exact path="/" component={Home} />
-            <Route exact path="/comment" component={CommentBox} />
             <Route exact path="/testPage" component={TestPage} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
