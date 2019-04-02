@@ -53,7 +53,10 @@ class NavBar extends React.Component{
               CSA Dev
             </Typography>
             <IconButton><SearchIcon /></IconButton>
-            <Button color="inherit"><Link to='/login'>Login</Link></Button>
+            { localStorage.getItem('user') ?
+              <Button><img src={'http://i.pravatar.cc/24'} alt={'testImage'}/></Button> :
+              <Button color="inherit"><Link to='/login'>Login</Link></Button>
+            }
           </Toolbar>
         </AppBar>
         <SwipeableDrawer
