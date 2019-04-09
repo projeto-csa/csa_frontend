@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
+import UserMenu from '../UserMenu'
 
 const styles = {
   root: {
@@ -30,7 +31,8 @@ class NavBar extends React.Component{
   constructor(){
     super()
     this.state = {
-      drawer: false
+      drawer: false,
+      userMenu: false
     }
   }
 
@@ -40,6 +42,11 @@ class NavBar extends React.Component{
       this.setState({drawer: open})
     }
   }
+
+  userMenuToggle = (open) => {
+    return () => this.setState({userMenu: open})
+  }
+
   render(){
     const { classes } = this.props;
     return (
@@ -54,8 +61,12 @@ class NavBar extends React.Component{
             </Typography>
             <IconButton><SearchIcon /></IconButton>
             { localStorage.getItem('user') ?
-              <Button><img src={'http://i.pravatar.cc/24'} alt={'testImage'}/></Button> :
+              <Button onClick={this.userMenuToggle(true)}><img src={'http://i.pravatar.cc/24'} alt={'testImage'}/></Button> :
               <Button color="inherit"><Link to='/login'>Login</Link></Button>
+            }
+            { this.state.userMenu ?
+              <UserMenu onClick={this.userMenuToggle(false)}/>
+              : null
             }
           </Toolbar>
         </AppBar>
