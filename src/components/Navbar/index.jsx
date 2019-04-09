@@ -28,11 +28,11 @@ const styles = {
 };
 
 class NavBar extends React.Component{
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       drawer: false,
-      userMenu: false
+      userMenu: false,
     }
   }
 
@@ -49,6 +49,7 @@ class NavBar extends React.Component{
 
   render(){
     const { classes } = this.props;
+
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
@@ -60,12 +61,12 @@ class NavBar extends React.Component{
               CSA Dev
             </Typography>
             <IconButton><SearchIcon /></IconButton>
-            { localStorage.getItem('user') ?
+            { this.props.logged ?
               <Button onClick={this.userMenuToggle(true)}><img src={'http://i.pravatar.cc/24'} alt={'testImage'}/></Button> :
               <Button color="inherit"><Link to='/login'>Login</Link></Button>
             }
             { this.state.userMenu ?
-              <UserMenu onClick={this.userMenuToggle(false)}/>
+              <UserMenu onClick={this.userMenuToggle(false)} onLogout={this.props.onLogout}/>
               : null
             }
           </Toolbar>
@@ -78,7 +79,7 @@ class NavBar extends React.Component{
           <ul>
             <li key={0} onClick={this.openDrawer(false)}><Link to='/'>Home</Link></li>
             <li key={1} onClick={this.openDrawer(false)}><Link to='/register'>Register</Link></li>
-            <li key={2} onClick={this.openDrawer(false)}><Link to='/topicos'>Topicos</Link></li>
+            <li key={2} onClick={this.openDrawer(false)}><Link to='/topicos'>Conversas</Link></li>
             <li key={3} onClick={this.openDrawer(false)}><Link to='/rotinas'>Rotinas</Link></li>
             <li key={4} onClick={this.openDrawer(false)}><Link to='/perfil-csa'>Perfil da CSA</Link></li>
             <li key={5} onClick={this.openDrawer(false)}><Link to='/sobre'>Sobre o site</Link></li>
