@@ -38,7 +38,6 @@ class NavBar extends React.Component{
 
   openDrawer = (open) => {
     return () => {
-      console.log('Navigation menu opened: ', open)
       this.setState({drawer: open})
     }
   }
@@ -62,8 +61,8 @@ class NavBar extends React.Component{
             </Typography>
             <IconButton><SearchIcon /></IconButton>
             { this.props.logged ?
-              <Button onClick={this.userMenuToggle(true)}><img src={'http://i.pravatar.cc/24'} alt={'testImage'}/></Button> :
-              <Button color="inherit"><Link to='/login'>Login</Link></Button>
+              <Button onClick={this.userMenuToggle(true)}><img src={'http://i.pravatar.cc/24'} alt={'testImage'}/></Button>
+              : <Button color="inherit"><Link to='/login'>Login</Link></Button>
             }
             { this.state.userMenu ?
               <UserMenu onClick={this.userMenuToggle(false)} onLogout={this.props.onLogout}/>

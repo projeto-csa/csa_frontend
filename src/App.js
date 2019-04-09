@@ -25,9 +25,10 @@ class App extends React.Component{
       logged: (userId === '' ? false : true)
     }
   }
-  Log = (log) => {
-    return () => this.setState({logged: log})
-  }
+
+  Log = (log) =>
+    () => this.setState({logged: log})
+
   render(){
     const { logged } = this.state
     return(
@@ -38,7 +39,7 @@ class App extends React.Component{
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/login" render={() => <Login onLogin={this.Log(true)} />} />
+            <Route exact path="/login" render={(props) => <Login {...props} onLogin={this.Log(true)} />} />
             <Route exact path="/sobre" component={About} />
             <Route exact path="/comunidade-que-sustenta-a-agricultura" component={CSA} />
 
