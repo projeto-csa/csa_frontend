@@ -10,6 +10,7 @@ class TopicList extends React.Component {
 
   constructor(props){
     super(props)
+    console.log(props.logged)
     console.log(props.topics)
     this.state = {
       selectedTopic: {},
@@ -36,7 +37,10 @@ class TopicList extends React.Component {
                    </Link>
         }
         ) : null}
-        <Button onClick={this.newTopic(true)}>Novo tópico</Button>
+        { this.props.logged ?
+          <Button onClick={this.newTopic(true)}>Novo tópico</Button>
+          : null
+        }
         {this.state.newTopic ? <Redirect to='/topicCreation' /> : null }
       </div>
     )

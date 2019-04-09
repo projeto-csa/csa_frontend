@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom'
 import request from './request'
 
 class Login extends React.Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       identifier: '',
       password: '',
@@ -23,6 +23,8 @@ class Login extends React.Component {
   handleData = (data) => {
     localStorage.setItem('token', data.jwt)
     localStorage.setItem('user', data.user._id)
+    this.props.onLogin()
+    this.setState({redirect: true})
   }
 
   onClick = () => {
@@ -31,7 +33,6 @@ class Login extends React.Component {
       password: this.state.password
     }
     request(payload, this.handleData)
-    this.setState({redirect: true})
   }
 
 

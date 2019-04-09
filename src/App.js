@@ -17,27 +17,38 @@ import CSAProfile from './components/CSAProfile'
 import StyleWrapper from './StyleWrapper'
 
 class App extends React.Component{
-
+  constructor(){
+    super()
+    let userId = localStorage.getItem('user')
+    console.log('userId: ', userId === '')
+    this.state={
+      logged: (userId === '' ? false : true)
+    }
+  }
+  Log = (log) => {
+    return () => this.setState({logged: log})
+  }
   render(){
+    const { logged } = this.state
     return(
       <Router>
         <div className="App">
-          <Navbar />
+          <Navbar logged={this.state.logged} onLogout={this.Log(false)}/>
           <StyleWrapper>
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/login" render={() => <Login onLogin={this.Log(true)} />} />
             <Route exact path="/sobre" component={About} />
             <Route exact path="/comunidade-que-sustenta-a-agricultura" component={CSA} />
 
-            <Route exact path="/topicos" component={TopicList} />
+            <Route exact path="/topicos" render={ () => <TopicList logged={logged} /> } />
             <Route exact path="/topicCreation" component={TopicCreation} />
             <Route exact path="/rotinas" component={RoutineList} />
             <Route exact path="/routineCreation" component={RoutineCreation} />
             <Route exact path="/perfil-csa" component={CSAProfile} />
-            <Route path="/rotina/:routineId" component={Routine}/>
-            <Route path="/topico/:topicoId" component={Topic} />
+            <Route path="/rotina/:routineId" component={Routine} />
+            <Route path="/topico/:topicoId" render={ () => <Topic logged={logged} /> } />
           </StyleWrapper>
         </div>
       </Router>

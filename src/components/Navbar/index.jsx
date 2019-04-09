@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
+import UserMenu from '../UserMenu'
 
 const styles = {
   root: {
@@ -27,10 +28,11 @@ const styles = {
 };
 
 class NavBar extends React.Component{
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
-      drawer: false
+      drawer: false,
+      userMenu: false,
     }
   }
 
@@ -40,8 +42,14 @@ class NavBar extends React.Component{
       this.setState({drawer: open})
     }
   }
+
+  userMenuToggle = (open) => {
+    return () => this.setState({userMenu: open})
+  }
+
   render(){
     const { classes } = this.props;
+
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
@@ -53,7 +61,14 @@ class NavBar extends React.Component{
               CSA Dev
             </Typography>
             <IconButton><SearchIcon /></IconButton>
-            <Button color="inherit"><Link to='/login'>Login</Link></Button>
+            { this.props.logged ?
+              <Button onClick={this.userMenuToggle(true)}><img src={'http://i.pravatar.cc/24'} alt={'testImage'}/></Button> :
+              <Button color="inherit"><Link to='/login'>Login</Link></Button>
+            }
+            { this.state.userMenu ?
+              <UserMenu onClick={this.userMenuToggle(false)} onLogout={this.props.onLogout}/>
+              : null
+            }
           </Toolbar>
         </AppBar>
         <SwipeableDrawer
@@ -64,7 +79,7 @@ class NavBar extends React.Component{
           <ul>
             <li key={0} onClick={this.openDrawer(false)}><Link to='/'>Home</Link></li>
             <li key={1} onClick={this.openDrawer(false)}><Link to='/register'>Register</Link></li>
-            <li key={2} onClick={this.openDrawer(false)}><Link to='/topicos'>Topicos</Link></li>
+            <li key={2} onClick={this.openDrawer(false)}><Link to='/topicos'>Conversas</Link></li>
             <li key={3} onClick={this.openDrawer(false)}><Link to='/rotinas'>Rotinas</Link></li>
             <li key={4} onClick={this.openDrawer(false)}><Link to='/perfil-csa'>Perfil da CSA</Link></li>
             <li key={5} onClick={this.openDrawer(false)}><Link to='/sobre'>Sobre o site</Link></li>
