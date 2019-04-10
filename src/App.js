@@ -47,8 +47,8 @@ class App extends React.Component{
             <Route exact path="/rotinas" component={RoutineList} />
             <Route exact path="/routineCreation" component={RoutineCreation} />
             <Route exact path="/perfil-csa" component={CSAProfile} />
-            <Route path="/rotina/:routineId" component={Routine} />
-            <Route path="/topico/:topicoId" render={ (props) => <Topic {...props} logged={logged} /> } />
+            <Route path="/rotina/:id" component={Routine} />
+            <Route path="/topico/:id" render={ (props) => <Topic {...props} logged={logged} /> } />
           </StyleWrapper>
         </div>
       </Router>

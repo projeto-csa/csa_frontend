@@ -5,14 +5,20 @@ import PostOwner from '../PostOwner'
 import RoutineList from '../RoutineList'
 import answerRequest from './answerRequest'
 import request from './request'
+
 class Topic extends React.Component {
   constructor(props){
     super(props)
-    if(props.location)
+    if(props.location.state){
       this.state = {
         topic: props.location.state
       }
-
+    }else{
+      request(props.match.params.id, this.handleData)
+      this.state = {
+        topic: null
+      }
+    }
   }
 
   handleData = (data) => {
@@ -53,7 +59,7 @@ class Topic extends React.Component {
               : null
             }
           </div>
-        : null }
+        : <div>Carregando...</div> }
       </div>
     )
   }
