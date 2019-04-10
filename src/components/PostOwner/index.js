@@ -6,8 +6,8 @@ const PostOwner = (props) => {
       return(
         <div>
           <img src={'http://i.pravatar.cc/24'} alt={props.user.username}/>
-          <div>{props.user.username}</div>
-          <div>{formatedDate.toLocaleString("pt-BR")}</div>
+          <span>{props.user.username}</span>
+          <span>{formatedDate.toLocaleString("pt-BR")}</span>
         </div>
       )
   }else{

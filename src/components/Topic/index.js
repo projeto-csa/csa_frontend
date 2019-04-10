@@ -2,9 +2,9 @@ import React from 'react'
 import Response from '../Response'
 import ResponseForm from '../ResponseForm'
 import PostOwner from '../PostOwner'
-import answerRequest from './answerRequest'
 import RoutineList from '../RoutineList'
-
+import answerRequest from './answerRequest'
+import request from './request'
 class Topic extends React.Component {
   constructor(props){
     super(props)
@@ -12,6 +12,7 @@ class Topic extends React.Component {
       this.state = {
         topic: props.location.state
       }
+
   }
 
   handleData = (data) => {
@@ -59,4 +60,3 @@ class Topic extends React.Component {
 }
 
 export default Topic
-//<ResponseForm onClick={responseFormStub} />

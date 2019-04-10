@@ -20,7 +20,6 @@ class App extends React.Component{
   constructor(){
     super()
     let userId = localStorage.getItem('user')
-    console.log('userId: ', userId === '')
     this.state={
       logged: (userId === '' ? false : true)
     }
@@ -49,7 +48,7 @@ class App extends React.Component{
             <Route exact path="/routineCreation" component={RoutineCreation} />
             <Route exact path="/perfil-csa" component={CSAProfile} />
             <Route path="/rotina/:routineId" component={Routine} />
-            <Route path="/topico/:topicoId" render={ () => <Topic logged={logged} /> } />
+            <Route path="/topico/:topicoId" render={ (props) => <Topic {...props} logged={logged} /> } />
           </StyleWrapper>
         </div>
       </Router>
