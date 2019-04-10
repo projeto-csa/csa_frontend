@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const requestData = (id, handleData) => {
   axios
-    .get(`http://localhost:1337/rotinas/${id}`)
+    .get(`http://localhost:1337/routines/${id}`)
     .then(response => {
       handleData(response.data)
     })

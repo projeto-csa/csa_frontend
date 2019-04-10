@@ -1,13 +1,17 @@
 import React from 'react'
 import TopicList from '../TopicList'
+import request from './request.js'
 
 class Routine extends React.Component {
   constructor(props){
     super(props)
-    if(props.location)
-      this.state = {
-        routine: props.location.state
-      }
+    this.state = {
+      routine: null
+    }
+  }
+
+  componentDidMount(){
+    request(this.props.match.params.id, this.handleData)
   }
 
   handleData = (data) =>{

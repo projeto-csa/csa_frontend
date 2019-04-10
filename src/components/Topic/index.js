@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Response from '../Response'
 import ResponseForm from '../ResponseForm'
 import PostOwner from '../PostOwner'
@@ -10,13 +11,12 @@ class Topic extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      topic: props.location.state ? props.location.state : null
+      topic: null
     }
   }
 
   componentDidMount(){
-    if(!this.state.topic)
-      request(this.props.match.params.id, this.handleData)
+    request(this.props.match.params.id, this.handleData)
   }
 
   handleData = (data) => {
@@ -32,13 +32,14 @@ class Topic extends React.Component {
 
   render(){
     const { topic } = this.state
-    const { rotines } = this.state
+    console.log('topico: ', topic)
     return(
       <div className='Topic'>
-        <h4>Rotinas relacionadas</h4>
-        { rotines ? <RoutineList rotinas={rotines} /> : null }
         { topic ?
           <div>
+            <span>Rotinas relacionadas</span>
+            <div>{topic.routines.map((item, index) => <Link to={`/rotina/${item.id}`}>{item.name}</Link>)}</div>
+
             <h1>{topic.title}</h1>
             <PostOwner user={topic.creator} createdAt={topic.createdAt}/>
 

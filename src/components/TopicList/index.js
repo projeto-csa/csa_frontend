@@ -15,11 +15,14 @@ class TopicList extends React.Component {
     super(props)
     this.state = {
       selectedTopic: {},
-      topics: props.topics,
+      topics: null,
       newTopic: false,
       itemClicked: null
     }
-    if(!this.state.topics) requestTopics(this.handleData)
+  }
+
+  componentDidMount(){
+    requestTopics(this.handleData)
   }
 
   handleData = (data) => this.setState({topics: data})
