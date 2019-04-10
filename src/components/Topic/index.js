@@ -9,16 +9,14 @@ import request from './request'
 class Topic extends React.Component {
   constructor(props){
     super(props)
-    if(props.location.state){
-      this.state = {
-        topic: props.location.state
-      }
-    }else{
-      request(props.match.params.id, this.handleData)
-      this.state = {
-        topic: null
-      }
+    this.state = {
+      topic: props.location.state ? props.location.state : null
     }
+  }
+
+  componentDidMount(){
+    if(!this.state.topic)
+      request(this.props.match.params.id, this.handleData)
   }
 
   handleData = (data) => {
