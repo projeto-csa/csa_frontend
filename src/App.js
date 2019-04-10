@@ -42,12 +42,12 @@ class App extends React.Component{
             <Route exact path="/sobre" component={About} />
             <Route exact path="/comunidade-que-sustenta-a-agricultura" component={CSA} />
 
-            <Route exact path="/topicos" render={ () => <TopicList logged={logged} /> } />
+            <Route exact path="/topicos" render={ (props) => <TopicList {...props} logged={logged} /> } />
             <Route exact path="/topicCreation" component={TopicCreation} />
             <Route exact path="/rotinas" component={RoutineList} />
             <Route exact path="/routineCreation" component={RoutineCreation} />
             <Route exact path="/perfil-csa" component={CSAProfile} />
-            <Route path="/rotina/:id" component={Routine} />
+            <Route path="/rotina/:id" render={ (props) => <Routine {...props} logged={logged}/>} />
             <Route path="/topico/:id" render={ (props) => <Topic {...props} logged={logged} /> } />
           </StyleWrapper>
         </div>

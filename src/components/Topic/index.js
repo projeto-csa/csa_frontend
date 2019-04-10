@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import Response from '../Response'
 import ResponseForm from '../ResponseForm'
 import PostOwner from '../PostOwner'
-import RoutineList from '../RoutineList'
 import answerRequest from './answerRequest'
 import request from './request'
 
@@ -32,13 +31,12 @@ class Topic extends React.Component {
 
   render(){
     const { topic } = this.state
-    console.log('topico: ', topic)
     return(
       <div className='Topic'>
         { topic ?
           <div>
             <span>Rotinas relacionadas</span>
-            <div>{topic.routines.map((item, index) => <Link to={`/rotina/${item.id}`}>{item.name}</Link>)}</div>
+            {topic.routines.map((item, index) => <Link key={index} to={`/rotina/${item.id}`}>{item.name}</Link>)}
 
             <h1>{topic.title}</h1>
             <PostOwner user={topic.creator} createdAt={topic.createdAt}/>

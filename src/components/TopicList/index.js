@@ -1,5 +1,4 @@
 import React from 'react'
-import TopicListItem from '../TopicListItem'
 import PostOwner from '../PostOwner'
 import requestTopics from './request.js'
 import { Redirect } from 'react-router-dom'
@@ -27,7 +26,7 @@ class TopicList extends React.Component {
 
   handleData = (data) => this.setState({topics: data})
 
-  newTopic = (value) => () => this.setState({newTopic: value})
+  newTopic = () => this.setState({newTopic: true})
 
   handleClick = (link) => () =>{
     this.setState({itemClicked: link})
@@ -35,6 +34,7 @@ class TopicList extends React.Component {
 
   render(){
     const { topics } = this.state
+    console.log('trying to pass: ', this.props.match)
     return(
       <div>
         <List>
@@ -50,10 +50,10 @@ class TopicList extends React.Component {
 
         </List>
         { this.props.logged ?
-          <Button onClick={this.newTopic(true)}>Novo tópico</Button>
+          <Button onClick={this.newTopic}>Novo tópico</Button>
           : null
         }
-        {this.state.newTopic ? <Redirect to='/topicCreation' /> : null }
+        {this.state.newTopic ? <Redirect to={{pathname: '/topicCreation', state: this.props.routine}} /> : null }
         {this.state.itemClicked ? <Redirect to={this.state.itemClicked} /> : null }
       </div>
     )
