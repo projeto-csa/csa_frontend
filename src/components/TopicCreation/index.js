@@ -10,7 +10,7 @@ class TopicCreation extends React.Component {
     super(props)
     this.state = {
       showRoutineList: false,
-      relatedRoutines: props.location.state ? [props.location.state] : null,
+      relatedRoutines: props.location.state ? [props.location.state] : [],
       routines: null,
       title: '',
       description: '',
@@ -55,6 +55,7 @@ class TopicCreation extends React.Component {
   }
 
   render(){
+    const { relatedRoutines } = this.state
     return(
       <div>
         <h1>Novo Tópico</h1>
@@ -63,18 +64,22 @@ class TopicCreation extends React.Component {
         <textarea placeholder='Insira a descrição' onChange={this.handleChange('description')}/><br/>
         <div>Rotinas associadas:</div>
         <div>
-        {this.state.relatedRoutines ?
-          this.state.relatedRoutines.map( (item, index) => <span key={index}>{item.name}</span>)
+        {relatedRoutines.length > 0 ?
+          relatedRoutines.map( (item, index) => <span key={index}>{item.name}</span>)
           : <span>Nenhuma</span> }
         </div>
         { this.state.showRoutineList ?
             this.state.routines
-              .filter( item => this.state.relatedRoutines.find( related => related.name === item.name) === undefined)
+              .filter( item =>
+                relatedRoutines.find( related => related.name === item.name) === undefined)
               .map( (item, index) =>
                 <RoutineListItem routine={item} key={index} onClick={this.addRoutine(item)}/> )
             : null
         }
-        <Button onClick={this.toggleRoutineList}>{!this.state.showRoutineList? 'Adicionar rotina' : 'Fechar'}</Button>
+        <Button onClick={this.toggleRoutineList}>
+          { !this.state.showRoutineList ?
+            'Adicionar rotina' : 'Fechar'}
+        </Button>
         <Button onClick={this.createTopic}>Criar</Button>
         <Button>Cancelar</Button>
         {this.state.topic ? <Redirect to={{pathname:`/topico/${this.state.topic._id}`, state: this.state.topic}} /> : null}
