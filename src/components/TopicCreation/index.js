@@ -68,8 +68,10 @@ class TopicCreation extends React.Component {
           : <span>Nenhuma</span> }
         </div>
         { this.state.showRoutineList ?
-            this.state.routines.map( (item, index) =>
-              <RoutineListItem routine={item} key={index} onClick={this.addRoutine(item)}/> )
+            this.state.routines
+              .filter( item => this.state.relatedRoutines.find( related => related.name === item.name) === undefined)
+              .map( (item, index) =>
+                <RoutineListItem routine={item} key={index} onClick={this.addRoutine(item)}/> )
             : null
         }
         <Button onClick={this.toggleRoutineList}>{!this.state.showRoutineList? 'Adicionar rotina' : 'Fechar'}</Button>
