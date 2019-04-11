@@ -4,11 +4,12 @@ import requestTopics from './request.js'
 import { Redirect } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import TopicListItem from '../TopicListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 
-class TopicList extends React.Component {
+class Topics extends React.Component {
 
   constructor(props){
     super(props)
@@ -34,20 +35,16 @@ class TopicList extends React.Component {
 
   render(){
     const { topics } = this.state
-    console.log('trying to pass: ', this.props.match)
     return(
       <div>
         <List>
           { topics ?
             this.state.topics.map((item, index) =>
-              <Paper key={index} >
-                <ListItem button onClick={this.handleClick({pathname: `/topico/${item._id}`, state: item })}>
-                  <ListItemText primary={item.title} />
-                  <PostOwner user={item.creator} createdAt={item.createdAt}/>
-                </ListItem>
-              </Paper>
+              <ListItem button key={index}
+                onClick={this.handleClick({pathname: `/topico/${item._id}`, state: item })}>
+                  <TopicListItem topic={item}/>
+              </ListItem>
           ) : null}
-
         </List>
         { this.props.logged ?
           <Button onClick={this.newTopic}>Novo tópico</Button>
@@ -60,4 +57,4 @@ class TopicList extends React.Component {
   }
 }
 
-export default TopicList
+export default Topics

@@ -1,5 +1,5 @@
 import React from 'react'
-import TopicList from '../TopicList'
+import Topics from '../Topics'
 import request from './request.js'
 
 class Routine extends React.Component {
@@ -28,7 +28,7 @@ class Routine extends React.Component {
             <h3>Descrição</h3>
             <p>{routine.description}</p>
             <h2>Topicos relacionados</h2>
-            <TopicList logged={this.props.logged} routine={{id: routine.id, name: routine.name}} topics={routine.topics}/>
+            <Topics logged={this.props.logged} routine={{id: routine.id, name: routine.name}} topics={routine.topics}/>
           </div>) :
           <div>
             Making request.......

@@ -1,9 +1,13 @@
 import React from 'react'
+import Paper from '@material-ui/core/Paper'
+import { Link } from 'react-router-dom'
 
-const RoutineListItem = (props) => {
+const RoutineListItem = ({routine, onClick}) => {
 
   return(
-    <h3>{props.routine.name}</h3>
+    <Paper onClick={onClick}>
+      {routine.name}
+    </Paper>
   )
 }
 

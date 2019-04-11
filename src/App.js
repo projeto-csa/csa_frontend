@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import TestPage from './components/TestPage'
-import TopicList from './components/TopicList'
-import RoutineList from './components/RoutineList'
+import Topics from './components/Topics'
+import Routines from './components/Routines'
 import Routine from './components/Routine'
 import RoutineCreation from './components/RoutineCreation'
 import Topic from './components/Topic'
@@ -42,9 +42,9 @@ class App extends React.Component{
             <Route exact path="/sobre" component={About} />
             <Route exact path="/comunidade-que-sustenta-a-agricultura" component={CSA} />
 
-            <Route exact path="/topicos" render={ (props) => <TopicList {...props} logged={logged} /> } />
+            <Route exact path="/topicos" render={ (props) => <Topics {...props} logged={logged} /> } />
             <Route exact path="/topicCreation" component={TopicCreation} />
-            <Route exact path="/rotinas" component={RoutineList} />
+            <Route exact path="/rotinas" component={Routines} />
             <Route exact path="/routineCreation" component={RoutineCreation} />
             <Route exact path="/perfil-csa" component={CSAProfile} />
             <Route path="/rotina/:id" render={ (props) => <Routine {...props} logged={logged}/>} />
