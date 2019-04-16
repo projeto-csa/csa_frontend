@@ -1,6 +1,7 @@
 import React from 'react'
+import Button from '@material-ui/core/Button'
 
-const CSAAbout = ({csa}) => {
+const CSAAbout = ({csa, canEdit}) => {
   return(
     <div>
       <div>Agricultores:</div>
@@ -12,6 +13,7 @@ const CSAAbout = ({csa}) => {
       <br/>
 
       <div>Tipo de produção:</div>
+      {canEdit ? <Button>Editar</Button> : null}
       <br/>
 
       <div>Cotas disponíveis?</div>
@@ -19,22 +21,28 @@ const CSAAbout = ({csa}) => {
       <hr/>
 
       <div>Pontos de convivência:</div>
+      {canEdit ? <Button>Editar</Button> : null}
       <hr/>
 
       <div>Sobre {csa.name}:</div>
+      {canEdit ? <Button>Editar</Button> : null}
       <p>{csa.description}</p>
       <hr/>
 
       <div>Fotos: </div>
+      {canEdit ? <Button>Editar</Button> : null}
       <hr/>
 
       <div>Vídeos: </div>
+      {canEdit ? <Button>Editar</Button> : null}
       <hr/>
 
       <div>Contato: </div>
+      {canEdit ? <Button>Editar</Button> : null}
       <hr/>
 
       <div>Dúvidas frequentes: </div>
+      {canEdit ? <Button>Editar</Button> : null}
 
     </div>
   )

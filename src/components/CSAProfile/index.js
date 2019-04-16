@@ -29,6 +29,8 @@ class CSAProfile extends React.Component {
   render(){
     const { csa } = this.state
     const { tab } = this.state
+    let canEdit = csa ? this.props.logged && csa.users[0].id === localStorage.getItem('user') : false
+
     return(
       <div>
         { csa ?
@@ -39,7 +41,7 @@ class CSAProfile extends React.Component {
               <Tab label={"Sobre"}/>
               <Tab label={"Gestão"}/>
             </Tabs>
-            { tab === 0 && <CSAAbout csa={csa}/> }
+            { tab === 0 && <CSAAbout csa={csa} canEdit={canEdit}/> }
             { tab === 1 && <Management csa={csa}/>}
             </div>
           : <div>Carregando...</div>
