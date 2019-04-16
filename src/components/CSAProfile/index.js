@@ -2,6 +2,7 @@ import React from 'react'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Management from '../Management'
+import CSAAbout from '../CSAAbout'
 import request from './request.js'
 
 class CSAProfile extends React.Component {
@@ -32,15 +33,14 @@ class CSAProfile extends React.Component {
       <div>
         { csa ?
           <div>
-            CSA {csa.name}
+            <div>CSA {csa.name}</div>
+            <div><img src={'https://via.placeholder.com/328x188'} alt={csa.name}/></div>
             <Tabs value={tab} onChange={this.handleTab} variant='fullWidth'>
               <Tab label={"Sobre"}/>
               <Tab label={"Gestão"}/>
-              <Tab label={"Outra"}/>
             </Tabs>
-            { tab === 0 && <span>Sobre</span> }
-            { tab === 1 && <Management />}
-            { tab === 2 && <span>Outra</span> }
+            { tab === 0 && <CSAAbout csa={csa}/> }
+            { tab === 1 && <Management csa={csa}/>}
             </div>
           : <div>Carregando...</div>
         }
