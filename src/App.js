@@ -13,6 +13,7 @@ import Register from './components/Register'
 import Login from './components/Login'
 import About from './components/About'
 import CSA from './components/CSA'
+import Csas from './components/CSAs'
 import CSAProfile from './components/CSAProfile'
 import StyleWrapper from './StyleWrapper'
 
@@ -44,10 +45,11 @@ class App extends React.Component{
 
             <Route exact path="/topicos" render={ (props) => <Topics {...props} logged={logged} /> } />
             <Route exact path="/topicCreation" component={TopicCreation} />
-            <Route exact path="/rotinas" component={Routines} />
+            <Route exact path="/rotinas" render={ (props) => <Routines {...props} logged={logged}/>} />
             <Route exact path="/routineCreation" component={RoutineCreation} />
-            <Route exact path="/perfil-csa" component={CSAProfile} />
-            <Route path="/rotina/:id" render={ (props) => <Routine {...props} logged={logged}/>} />
+            <Route exact path="/csas" component={Csas} />
+            <Route path="/csa/:id" render={ (props) => <CSAProfile {...props} logged={logged} />} />
+            <Route path="/rotina/:id" render={ (props) => <Routine {...props} logged={logged} />} />
             <Route path="/topico/:id" render={ (props) => <Topic {...props} logged={logged} /> } />
           </StyleWrapper>
         </div>

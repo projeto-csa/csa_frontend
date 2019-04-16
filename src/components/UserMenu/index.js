@@ -6,9 +6,9 @@ import ListItem from '@material-ui/core/ListItem'
 import Button from '@material-ui/core/Button'
 import StyleWrapper from './StyleWrapper.js'
 
-const UserMenu = ({onClick, onLogout}) => {
+const UserMenu = ({logged, onClick, onLogout}) => {
   const options = ['Minhas informções', 'Minha CSA', 'Sair']
-  let loggedOut = false;
+  let loggedOut = false
   const Logout = () => {
     localStorage.setItem('user', '')
     localStorage.setItem('token', '')

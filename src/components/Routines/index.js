@@ -33,7 +33,7 @@ class Routines extends React.Component {
                 onClick={this.onClick({pathname:`/rotina/${item._id}`, state:item})}/>)
             : null
         }
-        <Button onClick={this.newRoutine(true)}>Nova rotina</Button>
+        {this.props.logged ? <Button onClick={this.newRoutine(true)}>Nova rotina</Button> : null}
         {this.state.newRoutine ? <Redirect to='/routineCreation' /> : null }
         {this.state.redirect ? <Redirect to={this.state.redirectTo} /> : null }
       </div>

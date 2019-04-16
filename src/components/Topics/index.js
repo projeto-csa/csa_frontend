@@ -12,14 +12,15 @@ class Topics extends React.Component {
     super(props)
     this.state = {
       selectedTopic: {},
-      topics: null,
+      topics: props.topics ? props.topics : null,
       newTopic: false,
       itemClicked: null
     }
   }
 
   componentDidMount(){
-    requestTopics(this.handleData)
+    if(!this.state.topics)
+      requestTopics(this.handleData)
   }
 
   handleData = (data) => this.setState({topics: data})

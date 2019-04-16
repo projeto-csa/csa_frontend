@@ -78,11 +78,12 @@ class NavBar extends React.Component{
           <ul>
             <li key={0} onClick={this.openDrawer(false)}><Link to='/'>Home</Link></li>
             <li key={1} onClick={this.openDrawer(false)}><Link to='/register'>Register</Link></li>
-            <li key={2} onClick={this.openDrawer(false)}><Link to='/topicos'>Conversas</Link></li>
-            <li key={3} onClick={this.openDrawer(false)}><Link to='/rotinas'>Rotinas</Link></li>
-            <li key={4} onClick={this.openDrawer(false)}><Link to='/perfil-csa'>Perfil da CSA</Link></li>
-            <li key={5} onClick={this.openDrawer(false)}><Link to='/sobre'>Sobre o site</Link></li>
-            <li key={6} onClick={this.openDrawer(false)}><Link to='/comunidade-que-sustenta-a-agricultura'>O que é CSA?</Link></li>
+            <li key={2} onClick={this.openDrawer(false)}><Link to='/csas'>CSAs</Link></li>
+            <li key={3} onClick={this.openDrawer(false)}><Link to='/topicos'>Conversas</Link></li>
+            <li key={4} onClick={this.openDrawer(false)}><Link to='/rotinas'>Rotinas</Link></li>
+            <li key={5} onClick={this.openDrawer(false)}><Link to='/perfil-csa'>Perfil da CSA</Link></li>
+            <li key={6} onClick={this.openDrawer(false)}><Link to='/sobre'>Sobre o site</Link></li>
+            <li key={7} onClick={this.openDrawer(false)}><Link to='/comunidade-que-sustenta-a-agricultura'>O que é CSA?</Link></li>
           </ul>
         </SwipeableDrawer>
       </div>
