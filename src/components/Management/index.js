@@ -3,7 +3,6 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import Button from '@material-ui/core/Button'
 
-import RoutineListItem from '../RoutineListItem'
 import Variation from '../Variation'
 import UserPortrait from '../UserPortrait'
 
@@ -14,9 +13,8 @@ class Management extends React.Component{
       csa: props.csa,
       showAll: false,
       addRoutine: false,
-      routines: null,
-      selectedRoutines: null,
-      routines: this.createRoutineList(props.csa)
+      routines: this.createRoutineList(props.csa),
+      selectedRoutines: null
     }
   }
   showAll = () => {
@@ -58,8 +56,7 @@ class Management extends React.Component{
               <div>Rotina: {routine.name}</div>
               {routine.variations.map((variation, j)=>
                 <div key={j}>
-                  <div>Variação: {variation.name}</div>
-                  <p>{variation.description}</p>
+                  <Variation variation={variation} />
                 </div>
               )}
             </div>
