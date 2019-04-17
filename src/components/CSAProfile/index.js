@@ -29,6 +29,7 @@ class CSAProfile extends React.Component {
   render(){
     const { csa } = this.state
     const { tab } = this.state
+    //weak condition
     let canEdit = csa ? this.props.logged && csa.users[0].id === localStorage.getItem('user') : false
 
     return(
