@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import Button from '@material-ui/core/Button'
@@ -27,9 +28,9 @@ class Management extends React.Component{
     const { variations } = csa
 
     let routineMap = new Map()
-    variations.map((item, index) => routineMap.set(item.routine.id, item.routine.name))
+    variations.map((item, index) => routineMap.set(item.routine.id, item.routine))
     let routines = []
-    routineMap.forEach((value, key) => routines.push({id: key, name: value, variations: []}))
+    routineMap.forEach((value, key) => routines.push({...value, variations: []}))
     variations.map( v => routines.find( r => r.id === v.routine.id ).variations.push(v) )
     return routines
   }
@@ -40,6 +41,7 @@ class Management extends React.Component{
     }
     const { showAll } = this.state
     const { routines } = this.state
+    console.log(routines)
 
     return(
       <div>
@@ -53,7 +55,7 @@ class Management extends React.Component{
         <div>
           {routines.map((routine, i) =>
             <div key={i}>
-              <div>Rotina: {routine.name}</div>
+              <div>Rotina: <Link to={`/rotina/${routine.id}`}>{routine.name}</Link></div>
               {routine.variations.map((variation, j)=>
                 <div key={j}>
                   <Variation variation={variation} />
