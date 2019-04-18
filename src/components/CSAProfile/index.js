@@ -3,7 +3,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Management from '../Management'
 import CSAAbout from '../CSAAbout'
-import request from './request.js'
+import { requestCSA, requestRoutines } from './request.js'
 
 class CSAProfile extends React.Component {
   constructor(props){
@@ -19,15 +19,15 @@ class CSAProfile extends React.Component {
   }
 
   componentDidMount(){
-      request(this.props.match.params.id, this.handleData)
+      requestCSA(this.props.match.params.id, this.handleData('csa'))
+      requestRoutines(this.handleData('routines'))
   }
 
-  handleData = (data) => {
-    this.setState({csa: data})
-  }
+  handleData = (type) => (data) => this.setState({[type]: data})
 
   render(){
     const { csa } = this.state
+    const { routines } = this.state
     const { tab } = this.state
     //weak condition
     let canEdit = csa ? this.props.logged && csa.users[0].id === localStorage.getItem('user') : false
@@ -36,14 +36,14 @@ class CSAProfile extends React.Component {
       <div>
         { csa ?
           <div>
-            <div>CSA {csa.name}</div>
+            <div>{csa.name}</div>
             <div><img src={'https://via.placeholder.com/328x188'} alt={csa.name}/></div>
             <Tabs value={tab} onChange={this.handleTab} variant='fullWidth'>
               <Tab label={"Sobre"}/>
               <Tab label={"Gestão"}/>
             </Tabs>
             { tab === 0 && <CSAAbout csa={csa} canEdit={canEdit}/> }
-            { tab === 1 && <Management csa={csa}/>}
+            { tab === 1 && <Management csa={csa} routines={routines}/>}
             </div>
           : <div>Carregando...</div>
         }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const request = (id, handleData) => {
+const requestCSA = (id, handleData) => {
   axios
     .get(`http://localhost:1337/csas/${id}`)
     .then(response => {
@@ -12,4 +12,16 @@ const request = (id, handleData) => {
     })
 }
 
-export default request
+const requestRoutines = (handleData) => {
+  axios
+    .get(`http://localhost:1337/routines`)
+    .then(response => {
+      console.log('rotinas: ', response.data)
+      handleData(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
+
+export { requestCSA, requestRoutines }

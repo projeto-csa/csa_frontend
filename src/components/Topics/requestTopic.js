@@ -9,7 +9,7 @@ const requestTopic = (topicId) => {
     })
     .then(response => {
       // Handle success.
-      console.log('Well done, here is the list of topics: ', response.data);
+      console.log('topic: ', response.data);
     })
     .catch(error => {
       // Handle error.
