@@ -41,7 +41,8 @@ class NavBar extends React.Component{
 
   MyCsa = () => {
     this.setState({userMenu: false})
-    this.props.history.push({pathname: `/csa/${this.props.user.csa._id}`})
+    let id = typeof this.props.user.csa === 'string' ? this.props.user.csa : this.props.user.csa.id
+    this.props.history.push({pathname: `/csa/${id}`})
   }
 
   Logout = () => {
