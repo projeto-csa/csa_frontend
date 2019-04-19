@@ -51,7 +51,7 @@ class Topic extends React.Component {
             : 'Nenhuma resposta!'
             }
             </div>
-            { this.props.logged ?
+            { this.props.user ?
               <ResponseForm onClick={answerRequest} topic={topic._id} newAnswer={this.newAnswer}/>
               : null
             }

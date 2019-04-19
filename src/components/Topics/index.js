@@ -44,7 +44,7 @@ class Topics extends React.Component {
               </ListItem>
           ) : null}
         </List>
-        { this.props.logged ?
+        { this.props.user ?
           <Button onClick={this.newTopic}>Novo tópico</Button>
           : null
         }

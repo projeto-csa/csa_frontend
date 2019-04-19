@@ -23,7 +23,7 @@ class Login extends React.Component {
   handleData = (data) => {
     localStorage.setItem('token', data.jwt)
     localStorage.setItem('user', data.user._id)
-    this.props.onLogin()
+    this.props.onLogin(data.user)
     this.setState({redirect: true})
   }
 

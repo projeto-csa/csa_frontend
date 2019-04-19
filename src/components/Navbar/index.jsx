@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import AppBar from '@material-ui/core/AppBar'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
@@ -33,7 +33,21 @@ class NavBar extends React.Component{
     this.state = {
       drawer: false,
       userMenu: false,
+      userMenuOptions: ['Minha CSA', 'Logout'],
+      userMenuActions: [this.MyCsa, this.Logout],
+      myCsa: false
     }
+  }
+
+  MyCsa = () => {
+    this.setState({userMenu: false, myCsa: true})
+  }
+
+  Logout = () => {
+    localStorage.setItem('user', '')
+    localStorage.setItem('token', '')
+    this.props.onLogout()
+    this.setState({userMenu: false})
   }
 
   openDrawer = (open) => {
@@ -48,7 +62,6 @@ class NavBar extends React.Component{
 
   render(){
     const { classes } = this.props;
-
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
@@ -60,12 +73,13 @@ class NavBar extends React.Component{
               CSA Dev
             </Typography>
             <IconButton><SearchIcon /></IconButton>
-            { this.props.logged ?
+            { this.props.user ?
               <Button onClick={this.userMenuToggle(true)}><img src={'http://i.pravatar.cc/24'} alt={'testImage'}/></Button>
               : <Button color="inherit"><Link to='/login'>Login</Link></Button>
             }
             { this.state.userMenu ?
-              <UserMenu onClick={this.userMenuToggle(false)} onLogout={this.props.onLogout}/>
+              <UserMenu options={this.state.userMenuOptions}
+                actions={this.state.userMenuActions} />
               : null
             }
           </Toolbar>

@@ -30,7 +30,7 @@ class CSAProfile extends React.Component {
 
   //weak condition
   editCondition = () => {
-    return this.state.csa ? this.props.logged && this.state.csa.users[0].id === localStorage.getItem('user') : false
+    return this.state.csa ? this.props.user && this.props.user._id === this.state.csa.users[0].id : false
   }
 
   editName = () => this.setState({editName: !this.state.editName, nameValue: ''})
@@ -74,7 +74,7 @@ class CSAProfile extends React.Component {
               <Tab label={"Gestão"}/>
             </Tabs>
             { tab === 0 && <CSAAbout csa={csa} canEdit={canEdit}/> }
-            { tab === 1 && <Management csa={csa} routines={routines}/>}
+            { tab === 1 && <Management user={this.props.user} csa={csa} routines={routines}/>}
             </div>
           : <div>Carregando...</div>
         }

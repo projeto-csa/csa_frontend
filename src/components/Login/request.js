@@ -5,6 +5,7 @@ const request = (payload, handleData) => {
   axios
     .post('http://localhost:1337/auth/local', payload)
     .then(response =>{
+      console.log('user: ', response.data)
       if(handleData) handleData(response.data)
     })
     .catch(error => {

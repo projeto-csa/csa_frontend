@@ -28,7 +28,7 @@ class Routine extends React.Component {
             <h3>Descrição</h3>
             <p>{routine.description}</p>
             <h2>Topicos relacionados</h2>
-            <Topics logged={this.props.logged} routine={{id: routine.id, name: routine.name}} topics={routine.topics}/>
+            <Topics user={this.props.user} routine={{id: routine.id, name: routine.name}} topics={routine.topics}/>
           </div>) :
           <div>
             Making request.......

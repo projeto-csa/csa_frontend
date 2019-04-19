@@ -16,25 +16,36 @@ import CSA from './components/CSA'
 import Csas from './components/CSAs'
 import CSAProfile from './components/CSAProfile'
 import StyleWrapper from './StyleWrapper'
+import request from './request.js'
 
 class App extends React.Component{
   constructor(){
     super()
-    let userId = localStorage.getItem('user')
     this.state={
-      logged: (userId === '' ? false : true)
+      user: null
     }
   }
 
-  Log = (log) =>
-    () => this.setState({logged: log})
+  componentDidMount(){
+    // auto login when user has already logged in from machine
+    let userId = localStorage.getItem('user')
+    if(userId){
+      request(userId, this.handleData)
+    }
+  }
+
+  handleData = (data) => {
+    this.setState({user: data})
+  }
+
+  Log = () => (user) => this.setState({user: user})
 
   render(){
-    const { logged } = this.state
+    const { user } = this.state
     return(
       <Router>
         <div className="App">
-          <Navbar logged={this.state.logged} onLogout={this.Log(false)}/>
+          <Navbar user={this.state.user} onLogout={this.Log(false)}/>
           <StyleWrapper>
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
@@ -43,14 +54,14 @@ class App extends React.Component{
             <Route exact path="/sobre" component={About} />
             <Route exact path="/comunidade-que-sustenta-a-agricultura" component={CSA} />
 
-            <Route exact path="/topicos" render={ (props) => <Topics {...props} logged={logged} /> } />
+            <Route exact path="/topicos" render={ (props) => <Topics {...props} user={user} /> } />
             <Route exact path="/topicCreation" component={TopicCreation} />
-            <Route exact path="/rotinas" render={ (props) => <Routines {...props} logged={logged}/>} />
+            <Route exact path="/rotinas" render={ (props) => <Routines {...props} user={user}/>} />
             <Route exact path="/routineCreation" component={RoutineCreation} />
             <Route exact path="/csas" component={Csas} />
-            <Route path="/csa/:id" render={ (props) => <CSAProfile {...props} logged={logged} />} />
-            <Route path="/rotina/:id" render={ (props) => <Routine {...props} logged={logged} />} />
-            <Route path="/topico/:id" render={ (props) => <Topic {...props} logged={logged} /> } />
+            <Route path="/csa/:id" render={ (props) => <CSAProfile {...props} user={user} />} />
+            <Route path="/rotina/:id" render={ (props) => <Routine {...props} user={user} />} />
+            <Route path="/topico/:id" render={ (props) => <Topic {...props} user={user} /> } />
           </StyleWrapper>
         </div>
       </Router>
