@@ -40,7 +40,8 @@ class NavBar extends React.Component{
   }
 
   MyCsa = () => {
-    this.setState({userMenu: false, myCsa: true})
+    this.setState({userMenu: false})
+    this.props.history.push({pathname: `/csa/${this.props.user.csa._id}`})
   }
 
   Logout = () => {
