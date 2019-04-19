@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import Response from '../Response'
 import ResponseForm from '../ResponseForm'
 import PostOwner from '../PostOwner'
+import ToggleInterested from './ToggleInterested';
+
 import answerRequest from './answerRequest'
 import request from './request'
 
@@ -31,11 +34,18 @@ class Topic extends React.Component {
 
   render(){
     const { topic } = this.state
+    const loggedUserId = localStorage.getItem('user')
     return(
       <div className='Topic'>
         { topic ?
           <div>
-            <span>Rotinas relacionadas</span>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }} >
+              <span>Rotinas relacionadas</span>
+              <ToggleInterested userId={loggedUserId} topic={topic} afterFetch={this.handleData} />
+            </div>
             {topic.routines.map((item, index) => <Link key={index} to={`/rotina/${item.id}`}>{item.name}</Link>)}
 
             <h1>{topic.title}</h1>
@@ -52,7 +62,12 @@ class Topic extends React.Component {
             }
             </div>
             { this.props.logged ?
-              <ResponseForm onClick={answerRequest} topic={topic._id} newAnswer={this.newAnswer}/>
+              <ResponseForm
+                onClick={answerRequest}
+                topic={topic._id}
+                newAnswer={this.handleData}
+                // newAnswer={this.newAnswer}
+              />
               : null
             }
           </div>
