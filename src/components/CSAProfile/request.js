@@ -24,4 +24,22 @@ const requestRoutines = (handleData) => {
     })
 }
 
-export { requestCSA, requestRoutines }
+const requestUpdate = (payload, handleData) => {
+  axios({
+    method: 'PUT',
+    url: `http://localhost:1337/csas/${payload.id}`,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    data: payload
+  })
+  .then( response => {
+    console.log('csa: ', response.data)
+    handleData(response.data)
+  })
+  .catch( error => {
+    console.log(error)
+  })
+}
+
+export { requestCSA, requestRoutines, requestUpdate }
