@@ -46,6 +46,7 @@ class App extends React.Component{
       <Router>
         <div className="App">
           <Navbar user={this.state.user} onLogout={this.Log(false)}/>
+          <div style={{height: '20px'}}></div>
           <StyleWrapper>
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
