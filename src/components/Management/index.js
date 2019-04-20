@@ -10,7 +10,7 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 
 import Variation from '../Variation'
 import UserPortrait from '../UserPortrait'
-import request from './request.js'
+import { requestEdit, requestNewVariation } from './request.js'
 
 class Management extends React.Component{
   constructor(props){
@@ -22,7 +22,14 @@ class Management extends React.Component{
       csaRoutines: this.createRoutineList(props.csa.variations),
       routines: props.routines,
       selectedVariations: props.csa.variations,
-      otherVariations: new Array(props.routines.length).fill({routine: '', csa: props.csa._id, name: '', description: ''})
+      otherVariations: new Array(props.routines.length)
+                            .fill().map( () =>
+                              ({ user: this.props.user._id,
+                                csa: this.props.csa._id,
+                                routine: '',
+                                name: '',
+                                description: ''
+                              }))
     }
   }
 
@@ -58,16 +65,12 @@ class Management extends React.Component{
       variations: [...this.state.selectedVariations.map( v => v.id)]
     }
     this.setState({openRoutineList: false})
-    request(payload, this.handleData)
+    requestEdit(payload, this.handleData)
   }
 
   setOtherVariations = (index, type, routineId) => (e) => {
-    let otherV = this.state.otherVariations
-    console.log('variation[',index,']: ', otherV[index])
+    let otherV = [...this.state.otherVariations]
     switch(type){
-      case 'routine':
-        otherV[index].routine = e.target.value
-        break
       case 'name':
         otherV[index].name = e.target.value
         break
@@ -89,6 +92,15 @@ class Management extends React.Component{
       routines: this.state.routines,
       csaRoutines: this.createRoutineList(data.variations)
     })
+  }
+
+  createVariation = (index) => () => {
+    let payload = this.state.otherVariations[index]
+    requestNewVariation(payload, this.handleNewVariation)
+  }
+
+  handleNewVariation = (data) => {
+
   }
 
   render(){
@@ -138,12 +150,12 @@ class Management extends React.Component{
         { this.state.openRoutineList ?
           <List subheader={<li />}>
             { routines
-              .map( (routine, index) =>
-                <li key={index}>
+              .map( (routine, i) =>
+                <li key={i}>
                   <ul>
                     <ListSubheader>{routine.name}</ListSubheader>
-                    {routine.variations.map( (variation, index) =>
-                      <ListItem key={index}>
+                    {routine.variations.map( (variation, j) =>
+                      <ListItem key={j}>
                         <Variation variation={variation} selectable
                           selected={this.state.selectedVariations.find( v => v.id === variation.id) !== undefined}
                           onClick={this.toggleSelection(variation)}/>
@@ -151,10 +163,11 @@ class Management extends React.Component{
                     )}
                   </ul>
                   <span>outra: </span>
-                  <input type='text' value={this.state.otherVariations[index].name}
-                    onChange={this.setOtherVariations(index, 'name', routine._id)} placeholder='Nome'/>
-                  <input type='text' value={this.state.otherVariations[index].description}
-                    onChange={this.setOtherVariations(index, 'description', routine._id)} placeholder='Descrição'/>
+                  <input type='text' value={this.state.otherVariations[i].name}
+                    onChange={this.setOtherVariations(i, 'name', routine._id)} placeholder='Nome'/>
+                  <input type='text' value={this.state.otherVariations[i].description}
+                    onChange={this.setOtherVariations(i, 'description', routine._id)} placeholder='Descrição'/>
+                  <Button onClick={this.createVariation(i)}>Criar</Button>
                 </li>
             )}
           </List>
