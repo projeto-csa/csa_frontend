@@ -21,7 +21,8 @@ class Management extends React.Component{
       openRoutineList: false,
       csaRoutines: this.createRoutineList(props.csa.variations),
       routines: props.routines,
-      selectedVariations: props.csa.variations
+      selectedVariations: props.csa.variations,
+      otherVariations: new Array(props.routines.length).fill({routine: '', csa: props.csa._id, name: '', description: ''})
     }
   }
 
@@ -58,6 +59,26 @@ class Management extends React.Component{
     }
     this.setState({openRoutineList: false})
     request(payload, this.handleData)
+  }
+
+  setOtherVariations = (index, type, routineId) => (e) => {
+    let otherV = this.state.otherVariations
+    console.log('variation[',index,']: ', otherV[index])
+    switch(type){
+      case 'routine':
+        otherV[index].routine = e.target.value
+        break
+      case 'name':
+        otherV[index].name = e.target.value
+        break
+      case 'description':
+        otherV[index].description = e.target.value
+        break
+      default:
+        break
+    }
+    otherV[index].routine = routineId
+    this.setState({otherVariations: otherV})
   }
 
   handleData = (data) => {
@@ -129,6 +150,11 @@ class Management extends React.Component{
                       </ListItem>
                     )}
                   </ul>
+                  <span>outra: </span>
+                  <input type='text' value={this.state.otherVariations[index].name}
+                    onChange={this.setOtherVariations(index, 'name', routine._id)} placeholder='Nome'/>
+                  <input type='text' value={this.state.otherVariations[index].description}
+                    onChange={this.setOtherVariations(index, 'description', routine._id)} placeholder='Descrição'/>
                 </li>
             )}
           </List>
