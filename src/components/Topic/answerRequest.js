@@ -1,9 +1,7 @@
 import axios from 'axios'
 
-import request from './request';
-
 const answerRequest = async (payload, handleData) => {
-  
+
   // add new answer
   try {
     await axios({

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import AppBar from '@material-ui/core/AppBar'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
@@ -34,15 +34,17 @@ class NavBar extends React.Component{
       drawer: false,
       userMenu: false,
       userMenuOptions: ['Minha CSA', 'Logout'],
-      userMenuActions: [this.MyCsa, this.Logout],
-      myCsa: false
+      userMenuActions: [this.MyCsa, this.Logout]
     }
   }
 
   MyCsa = () => {
     this.setState({userMenu: false})
-    let id = typeof this.props.user.csa === 'string' ? this.props.user.csa : this.props.user.csa.id
-    this.props.history.push({pathname: `/csa/${id}`})
+    let id = typeof this.props.user.csa === 'string' ? this.props.user.csa
+            :typeof this.props.user.csa === 'object' ? this.props.user.csa.id
+            : undefined
+    id ? this.props.history.push({pathname: `/csa/${id}`})
+    : this.props.history.push({pathname: `/semCSA`})
   }
 
   Logout = () => {

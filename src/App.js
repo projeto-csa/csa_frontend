@@ -15,6 +15,8 @@ import About from './components/About'
 import CSA from './components/CSA'
 import Csas from './components/CSAs'
 import CSAProfile from './components/CSAProfile'
+import NoCSAYet from './components/NoCSAYet'
+import CSACreator from './components/CSACreator'
 import StyleWrapper from './StyleWrapper'
 import request from './request.js'
 
@@ -61,6 +63,8 @@ class App extends React.Component{
             <Route exact path="/routineCreation" component={RoutineCreation} />
             <Route exact path="/csas" component={Csas} />
             <Route path="/csa/:id" render={ (props) => <CSAProfile {...props} user={user} />} />
+            <Route path="/semCSA" render={ (props) => <NoCSAYet {...props} user={user} />} />
+            <Route path="/csaCreator" render={ (props) => <CSACreator {...props} user={user} />} />
             <Route path="/rotina/:id" render={ (props) => <Routine {...props} user={user} />} />
             <Route path="/topico/:id" render={ (props) => <Topic {...props} user={user} /> } />
           </StyleWrapper>
