@@ -102,7 +102,7 @@ class Management extends React.Component{
             </div>
           )}
         </div>
-        { this.props.user._id === this.state.csa.users[0] ?
+        { this.props.user._id === this.state.csa.users[0]._id ?
           <Button onClick={this.openRoutineList}>
             { this.state.openRoutineList ? 'Cancelar' : 'Adicionar rotina' }
           </Button>
