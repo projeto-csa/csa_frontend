@@ -17,6 +17,8 @@ import Csas from './components/CSAs'
 import CSAProfile from './components/CSAProfile'
 import NoCSAYet from './components/NoCSAYet'
 import CSACreator from './components/CSACreator'
+import PrivateRoute from './components/PrivateRoute'
+
 import StyleWrapper from './StyleWrapper'
 import request from './request.js'
 
@@ -58,15 +60,20 @@ class App extends React.Component{
             <Route exact path="/comunidade-que-sustenta-a-agricultura" component={CSA} />
 
             <Route exact path="/topicos" render={ (props) => <Topics {...props} user={user} /> } />
-            <Route exact path="/topicCreation" component={TopicCreation} />
+            <Route path="/topico/:id" render={ (props) => <Topic {...props} user={user} /> } />
+
             <Route exact path="/rotinas" render={ (props) => <Routines {...props} user={user}/>} />
-            <Route exact path="/routineCreation" component={RoutineCreation} />
+            <Route path="/rotina/:id" render={ (props) => <Routine {...props} user={user} />} />
+
             <Route exact path="/csas" component={Csas} />
             <Route path="/csa/:id" render={ (props) => <CSAProfile {...props} user={user} />} />
+
             <Route path="/semCSA" render={ (props) => <NoCSAYet {...props} user={user} />} />
             <Route path="/csaCreator" render={ (props) => <CSACreator {...props} user={user} />} />
-            <Route path="/rotina/:id" render={ (props) => <Routine {...props} user={user} />} />
-            <Route path="/topico/:id" render={ (props) => <Topic {...props} user={user} /> } />
+
+            <PrivateRoute exact path="/topicCreation" component={TopicCreation} user={user} redirect="/"/>
+            <PrivateRoute exact path="/routineCreation" component={RoutineCreation} user={user} redirect="/"/>
+
           </StyleWrapper>
         </div>
       </Router>
