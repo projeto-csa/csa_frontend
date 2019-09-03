@@ -44,47 +44,43 @@ class App extends React.Component{
     // auto login when user has already logged in from machine
     let userId = localStorage.getItem('user')
     if(userId){
-      request(userId, this.handleData)
+      request(userId, this.setUserData)
     }
   }
 
-  handleData = (data) => {
+  setUserData = (data) => {
     this.props.dispatch(setUser(data))
-    //this.setState({user: data})
   }
 
-  Log = () => (user) => this.setState({user: user})
-
   render(){
-    const { user } = this.state
     return(
       <Router>
         <div className="App">
-          <Navbar user={this.state.user} onLogout={this.Log(false)}/>
+          <Navbar onLogout={this.setUserData}/>
           <div style={{height: '56px'}}></div>
           <LocationTitle title={"LUGAR NO SITE"} />
           <StyleWrapper>
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/login" render={(props) => <Login {...props} onLogin={this.Log(true)} />} />
+            <Route exact path="/login" render={(props) => <Login {...props} onLogin={this.setUserData} />} />
             <Route exact path="/sobre" component={About} />
             <Route exact path="/comunidade-que-sustenta-a-agricultura" component={CSA} />
 
-            <Route exact path="/topicos" render={ (props) => <Topics {...props} user={user} /> } />
-            <Route path="/topico/:id" render={ (props) => <Topic {...props} user={user} /> } />
+            <Route exact path="/topicos" component={Topics} />
+            <Route path="/topico/:id" component={Topic} />
 
-            <Route exact path="/rotinas" render={ (props) => <Routines {...props} user={user}/>} />
-            <Route path="/rotina/:id" render={ (props) => <Routine {...props} user={user} />} />
+            <Route exact path="/rotinas" component={Routines} />
+            <Route path="/rotina/:id" component={Routine} />
 
             <Route exact path="/csas" component={Csas} />
-            <Route path="/csa/:id" render={ (props) => <CSAProfile {...props} user={user} />} />
+            <Route path="/csa/:id" component={CSAProfile} />
 
-            <Route path="/semCSA" render={ (props) => <NoCSAYet {...props} user={user} />} />
-            <Route path="/csaCreator" render={ (props) => <CSACreator {...props} user={user} />} />
+            <Route path="/semCSA" component={NoCSAYet} />
+            <Route path="/csaCreator" component={CSACreator} />
 
-            <PrivateRoute exact path="/topicCreation" component={TopicCreation} user={user} redirect="/"/>
-            <PrivateRoute exact path="/routineCreation" component={RoutineCreation} user={user} redirect="/"/>
+            <PrivateRoute exact path="/topicCreation" component={TopicCreation} redirect="/"/>
+            <PrivateRoute exact path="/routineCreation" component={RoutineCreation} redirect="/"/>
 
           </StyleWrapper>
         </div>

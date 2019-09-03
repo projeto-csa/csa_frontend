@@ -1,8 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -52,7 +54,7 @@ class NavBar extends React.Component{
   Logout = () => {
     localStorage.setItem('user', '')
     localStorage.setItem('token', '')
-    this.props.onLogout()
+    this.props.onLogout(null)
     this.setState({userMenu: false})
   }
 
@@ -127,6 +129,12 @@ class NavBar extends React.Component{
 
 NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withRouter(withStyles(styles)(NavBar));
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(NavBar)))
