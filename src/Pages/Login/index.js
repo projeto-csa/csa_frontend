@@ -1,5 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 import request from './request'
 
 class Login extends React.Component {
@@ -48,5 +50,7 @@ class Login extends React.Component {
     )
   }
 }
+
+
 
 export default Login

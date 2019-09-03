@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 import Navbar from './components/Navbar'
 import LocationTitle from './components/LocationTitle'
 import Home from './Pages/Home'
@@ -23,6 +25,13 @@ import PrivateRoute from './components/PrivateRoute'
 import StyleWrapper from './StyleWrapper'
 import request from './request.js'
 
+const setUser = (userData) => {
+  return {
+    type: 'SET_USER',
+    user: userData
+  }
+}
+
 class App extends React.Component{
   constructor(){
     super()
@@ -40,7 +49,8 @@ class App extends React.Component{
   }
 
   handleData = (data) => {
-    this.setState({user: data})
+    this.props.dispatch(setUser(data))
+    //this.setState({user: data})
   }
 
   Log = () => (user) => this.setState({user: user})
@@ -83,4 +93,10 @@ class App extends React.Component{
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(App);
