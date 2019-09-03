@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 
-import CSAListItem from '../CSAListItem'
+import CSAListItem from '../../components/CSAListItem'
 import { requestCSAs, requestParticipation } from './request.js'
 
 class NoCSAYet extends React.Component {

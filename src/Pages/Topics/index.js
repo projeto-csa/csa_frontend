@@ -1,10 +1,12 @@
 import React from 'react'
 import requestTopics from './request.js'
 import { Redirect } from 'react-router-dom'
+
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import TopicListItem from '../TopicListItem'
 import Button from '@material-ui/core/Button'
+
+import TopicListItem from '../../components/TopicListItem'
 
 class Topics extends React.Component {
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
-import RoutineListItem from '../RoutineListItem'
+import RoutineListItem from '../../components/RoutineListItem'
 import requestRoutines from './request.js'
 
 class Routines extends React.Component {

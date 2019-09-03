@@ -16,7 +16,9 @@ import UserMenu from '../UserMenu'
 const styles = {
   root: {
     flexGrow: 1,
-    background: '229, 229, 229, 0.8'
+    fontFamily: "Roboto",
+    color: "#000000",
+    background: "#E0E0E0"
   },
   grow: {
     flexGrow: 1,
@@ -67,9 +69,9 @@ class NavBar extends React.Component{
   render(){
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      <div>
         <AppBar position="fixed">
-          <Toolbar>
+          <Toolbar className={classes.root}>
             <IconButton onClick={this.openDrawer(true)} className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
@@ -94,14 +96,28 @@ class NavBar extends React.Component{
           onOpen={this.openDrawer(true)}
         >
           <ul>
-            <li key={0} onClick={this.openDrawer(false)}><Link to='/'>Home</Link></li>
-            <li key={1} onClick={this.openDrawer(false)}><Link to='/register'>Register</Link></li>
-            <li key={2} onClick={this.openDrawer(false)}><Link to='/csas'>CSAs</Link></li>
-            <li key={3} onClick={this.openDrawer(false)}><Link to='/topicos'>Conversas</Link></li>
-            <li key={4} onClick={this.openDrawer(false)}><Link to='/rotinas'>Rotinas</Link></li>
-            <li key={5} onClick={this.openDrawer(false)}><Link to='/perfil-csa'>Perfil da CSA</Link></li>
-            <li key={6} onClick={this.openDrawer(false)}><Link to='/sobre'>Sobre o site</Link></li>
-            <li key={7} onClick={this.openDrawer(false)}><Link to='/comunidade-que-sustenta-a-agricultura'>O que é CSA?</Link></li>
+            <li key={0} onClick={this.openDrawer(false)}>
+              <Link to='/'>Home</Link>
+            </li>
+            <li key={1} onClick={this.openDrawer(false)}>
+              <Link to='/register'>Register</Link>
+            </li>
+            <li key={2} onClick={this.openDrawer(false)}>
+              <Link to='/csas'>CSAs</Link></li>
+            <li key={3} onClick={this.openDrawer(false)}>
+              <Link to='/topicos'>Conversas</Link>
+            </li>
+            <li key={4} onClick={this.openDrawer(false)}>
+              <Link to='/rotinas'>Rotinas</Link>
+            </li>
+            <li key={5} onClick={this.openDrawer(false)}>
+              <Link to='/perfil-csa'>Perfil da CSA</Link>
+            </li>
+            <li key={6} onClick={this.openDrawer(false)}>
+              <Link to='/sobre'>Sobre o site</Link></li>
+            <li key={7} onClick={this.openDrawer(false)}>
+              <Link to='/comunidade-que-sustenta-a-agricultura'>O que é CSA?</Link>
+            </li>
           </ul>
         </SwipeableDrawer>
       </div>

@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button'
 import { Redirect } from 'react-router-dom'
 import request from './request.js'
 import routinesRequest from './routinesRequest.js'
-import RoutineListItem from '../RoutineListItem'
+import RoutineListItem from '../../components/RoutineListItem'
 
 class TopicCreation extends React.Component {
   constructor(props){

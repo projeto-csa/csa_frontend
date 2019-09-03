@@ -2,8 +2,8 @@ import React from 'react'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Button from '@material-ui/core/Button'
-import Management from '../Management'
-import CSAAbout from '../CSAAbout'
+import Management from '../../components/Management'
+import CSAAbout from '../../components/CSAAbout'
 import { requestCSA, requestRoutines, requestUpdate } from './request.js'
 
 class CSAProfile extends React.Component {

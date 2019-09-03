@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import Response from '../Response'
-import ResponseForm from '../ResponseForm'
-import PostOwner from '../PostOwner'
+import Response from '../../components/Response'
+import ResponseForm from '../../components/ResponseForm'
+import PostOwner from '../../components/PostOwner'
 import ToggleInterested from './ToggleInterested';
 
 import answerRequest from './answerRequest'
