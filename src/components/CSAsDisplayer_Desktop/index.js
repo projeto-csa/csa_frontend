@@ -11,13 +11,13 @@ const CSAsDisplayer_Desktop = props => {
   return(
     <div style={styles.container}>
       <div style={{height: 500, background: '#E1E1E1'}}>
-        Filtros
+        {props.text.FILTERS}
         <hr/>
       </div>
       <div>
         <div>Lista de CSAs</div>
         <hr/>
-        <CSAsTable csas={props.csas}/>
+        <CSAsTable csas={props.csas} text={props.text}/>
       </div>
     </div>
   )

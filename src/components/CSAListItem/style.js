@@ -1,7 +1,4 @@
 const style = {
-  csaName:{
-    color: "#009688"
-  },
   meetingPoints:{
     paddingLeft: "15px"
   },

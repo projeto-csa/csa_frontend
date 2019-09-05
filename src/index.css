@@ -9,6 +9,10 @@ body {
   min-width: 335px;
 }
 
+.clickableText {
+  color: #009688;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

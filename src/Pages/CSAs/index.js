@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
 
 import CSAListItem from '../../components/CSAListItem'
 import CSAsDisplayer_Desktop from '../../components/CSAsDisplayer_Desktop'
@@ -49,8 +47,8 @@ class Csas extends React.Component {
               <span>{text.WHERE_HEADER}</span>
               <span>{text.WHEN_HEADER}</span>
               <span
-                onClick={this.openFilters}
-                style={style.clickableText}>
+                className={"clickableText"}
+                onClick={this.openFilters}>
                   {text.FILTERS}
               </span>
             </div>
@@ -65,7 +63,7 @@ class Csas extends React.Component {
             { this.state.itemClicked ? <Redirect to={this.state.itemClicked} /> : null }
           </div>
         :
-        <CSAsDisplayer_Desktop csas={csas}/>
+        <CSAsDisplayer_Desktop csas={csas} text={text}/>
         }
       </div>
     )
