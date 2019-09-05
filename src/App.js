@@ -23,6 +23,7 @@ import CSACreator from './Pages/CSACreator'
 import PrivateRoute from './components/PrivateRoute'
 
 import StyleWrapper from './StyleWrapper'
+import screenSizes from './screenSizes'
 import request from './request.js'
 
 const setUser = (userData) => {
@@ -32,12 +33,23 @@ const setUser = (userData) => {
   }
 }
 
+const setVersion = (version) => {
+  version = version ? version
+            : window.innerWidth <= screenSizes.mobileMaxWidth ? 'MOBILE' : 'DESKTOP'
+
+  return {
+    type: 'SCREEN_SIZE',
+    screenSize: version
+  }
+}
+
 class App extends React.Component{
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state={
       user: null
     }
+    props.dispatch(setVersion())
   }
 
   componentDidMount(){
@@ -46,19 +58,36 @@ class App extends React.Component{
     if(userId){
       request(userId, this.setUserData)
     }
+    window.addEventListener("resize", this.setWindowSize)
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.setWindowSize)
   }
 
   setUserData = (data) => {
     this.props.dispatch(setUser(data))
   }
 
+  setWindowSize = () => {
+    console.log(window.innerWidth)
+    if(window.innerWidth > screenSizes.mobileMaxWidth &&
+        this.props.screenSize === 'MOBILE')
+      this.props.dispatch(setVersion('DESKTOP'))
+    else if(window.innerWidth <= screenSizes.mobileMaxWidth &&
+        this.props.screenSize === 'DESKTOP')
+      this.props.dispatch(setVersion('MOBILE'))
+  }
+
   render(){
     return(
       <Router>
         <div className="App">
-          <Navbar onLogout={this.setUserData}/>
-          <div style={{height: '56px'}}></div>
-          <LocationTitle title={"LUGAR NO SITE"} />
+          <Navbar onLogout={this.setUserData} />
+          { this.props.screenSize === 'MOBILE' ?
+            <LocationTitle title={"LUGAR NO SITE"} />
+            : null
+          }
           <StyleWrapper>
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
@@ -91,6 +120,7 @@ class App extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
+    screenSize: state.screenSize,
     user: state.user
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import requestTopics from './request.js'
 import { Redirect } from 'react-router-dom'
 
@@ -57,4 +58,10 @@ class Topics extends React.Component {
   }
 }
 
-export default Topics
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Topics)
