@@ -132,7 +132,7 @@ class NavBar extends React.Component{
             }
           </Toolbar>
         </AppBar>
-        <div></div>
+        <div style={{height: "56px"}}></div>
 
         {/*Should only be used on small screen*/}
         { this.props.screenSize === 'MOBILE' ?

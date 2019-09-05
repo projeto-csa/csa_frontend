@@ -1,9 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 
 import CSAListItem from '../../components/CSAListItem'
+import CSAsDisplayer_Desktop from '../../components/CSAsDisplayer_Desktop'
 import request from './request.js'
 
 import text from './text'
@@ -41,27 +43,39 @@ class Csas extends React.Component {
     const { csas } = this.state
     return(
       <div>
-        <div style={style.infoHeader}>
-          <span>{text.WHERE_HEADER}</span>
-          <span>{text.WHEN_HEADER}</span>
-          <span
-            onClick={this.openFilters}
-            style={style.clickableText}>
-              {text.FILTERS}
-          </span>
-        </div>
+        {this.props.screenSize === 'MOBILE' ?
+          <div>
+            <div style={style.infoHeader}>
+              <span>{text.WHERE_HEADER}</span>
+              <span>{text.WHEN_HEADER}</span>
+              <span
+                onClick={this.openFilters}
+                style={style.clickableText}>
+                  {text.FILTERS}
+              </span>
+            </div>
 
-        <hr/>
+            <hr/>
 
-        {csas ? csas.map((item, index) =>
-            <CSAListItem key={index} csa={item}
-              onClick={this.handleClick({pathname: `/csa/${item.id}`, state: item})} />)
-        : <div>{text.LOADING}</div>}
+            {csas ? csas.map((item, index) =>
+                <CSAListItem key={index} csa={item}
+                  onClick={this.handleClick({pathname: `/csa/${item.id}`, state: item})} />)
+            : <div>{text.LOADING}</div>}
 
-        { this.state.itemClicked ? <Redirect to={this.state.itemClicked} /> : null }
+            { this.state.itemClicked ? <Redirect to={this.state.itemClicked} /> : null }
+          </div>
+        :
+        <CSAsDisplayer_Desktop csas={csas}/>
+        }
       </div>
     )
   }
 }
 
-export default Csas
+const mapStateToProps = state => {
+  return {
+    screenSize: state.screenSize
+  }
+}
+
+export default connect(mapStateToProps)(Csas)
