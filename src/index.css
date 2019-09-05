@@ -9,8 +9,17 @@ body {
   min-width: 335px;
 }
 
+a {
+  text-decoration: none;
+  color: #009688;
+}
+
 .clickableText {
   color: #009688;
+}
+
+.title{
+  color: #E3A800
 }
 
 code {

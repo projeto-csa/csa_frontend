@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { timeFormat } from '../../utils'
 
 const CSAsTable = props => {
@@ -12,16 +14,20 @@ const CSAsTable = props => {
   return(
     <div>
       <div style={styles.table}>
-        <span>{props.text.CSAs}</span>
-        <span>{props.text.WHERE}</span>
-        <span>{props.text.WHEN}</span>
+        <span className={"title"}>{props.text.CSAs}</span>
+        <span className={"title"}>{props.text.WHERE}</span>
+        <span className={"title"}>{props.text.WHEN}</span>
       </div>
       <div>
         { props.csas && props.csas.map((item, index) =>
           <div key={index}>
             { item.meetingpoints.map((meeting, i) =>
               <div style={styles.table} key={i}>
-                <span className={"clickableText"}>{i === 0 ? item.name : ''}</span>
+                <span>
+                  <Link to={{pathname: `/csa/${item.id}`, state: item}}>
+                    {i === 0 ? item.name : ''}
+                  </Link>
+                </span>
                 <span>{meeting.location}</span>
                 <span>{timeFormat(meeting.startTime, meeting.endTime)}</span>
               </div>

@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { timeFormat } from '../../utils'
 import style from './style'
 
@@ -11,7 +13,9 @@ const CSAListItem = ({csa, onClick}) => {
 
   return(
     <div>
-      <div className={"clickableText"} onClick={onClick}>{csa.name}</div>
+      <div>
+        <Link to={{pathname: `/csa/${csa.id}`, state: csa}}>{csa.name}</Link>
+      </div>
       <div style={style.meetingPoints}>
       { meetingPoints.map( (item, index) => {
         return(

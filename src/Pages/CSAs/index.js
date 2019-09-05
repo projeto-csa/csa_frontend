@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import CSAListItem from '../../components/CSAListItem'
-import CSAsDisplayer_Desktop from '../../components/CSAsDisplayer_Desktop'
+import CSAsDisplayerDesktop from '../../components/CSAsDisplayer_Desktop'
 import request from './request.js'
 
 import text from './text'
@@ -44,8 +44,8 @@ class Csas extends React.Component {
         {this.props.screenSize === 'MOBILE' ?
           <div>
             <div style={style.infoHeader}>
-              <span>{text.WHERE_HEADER}</span>
-              <span>{text.WHEN_HEADER}</span>
+              <span className={"title"}>{text.WHERE_HEADER}</span>
+              <span className={"title"}>{text.WHEN_HEADER}</span>
               <span
                 className={"clickableText"}
                 onClick={this.openFilters}>
@@ -56,14 +56,13 @@ class Csas extends React.Component {
             <hr/>
 
             {csas ? csas.map((item, index) =>
-                <CSAListItem key={index} csa={item}
-                  onClick={this.handleClick({pathname: `/csa/${item.id}`, state: item})} />)
+              <CSAListItem key={index} csa={item}/>)
             : <div>{text.LOADING}</div>}
 
             { this.state.itemClicked ? <Redirect to={this.state.itemClicked} /> : null }
           </div>
         :
-        <CSAsDisplayer_Desktop csas={csas} text={text}/>
+        <CSAsDisplayerDesktop csas={csas} text={text}/>
         }
       </div>
     )
