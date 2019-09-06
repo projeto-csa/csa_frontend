@@ -46,18 +46,16 @@ const setVersion = (version) => {
 class App extends React.Component{
   constructor(props){
     super(props)
-    this.state={
-      user: null
-    }
     props.dispatch(setVersion())
-  }
-
-  componentDidMount(){
     // auto login when user has already logged in from machine
     let userId = localStorage.getItem('user')
     if(userId){
       request(userId, this.setUserData)
     }
+  }
+
+  componentDidMount(){
+
     window.addEventListener("resize", this.setWindowSize)
   }
 
@@ -70,12 +68,11 @@ class App extends React.Component{
   }
 
   setWindowSize = () => {
-    console.log(window.innerWidth)
     if(window.innerWidth > screenSizes.mobileMaxWidth &&
-        this.props.screenSize === 'MOBILE')
+        this.props.screenSize !== 'DESKTOP')
       this.props.dispatch(setVersion('DESKTOP'))
     else if(window.innerWidth <= screenSizes.mobileMaxWidth &&
-        this.props.screenSize === 'DESKTOP')
+        this.props.screenSize !== 'MOBILE')
       this.props.dispatch(setVersion('MOBILE'))
   }
 

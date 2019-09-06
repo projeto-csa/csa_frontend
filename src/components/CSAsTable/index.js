@@ -10,14 +10,14 @@ const CSAsTable = props => {
       gridTemplateColumns: "33% 33% 33%"
     }
   }
-
   return(
     <div>
       <div style={styles.table}>
         <span className={"title"}>{props.text.CSAs}</span>
-        <span className={"title"}>{props.text.WHERE}</span>
-        <span className={"title"}>{props.text.WHEN}</span>
+        <span className={"title"}>{props.text.WHERE_HEADER}</span>
+        <span className={"title"}>{props.text.WHEN_HEADER}</span>
       </div>
+      <hr/>
       <div>
         { props.csas && props.csas.map((item, index) =>
           <div key={index}>

@@ -5,7 +5,6 @@ const requestData = (handleData) => {
     .get('http://localhost:1337/csas')
     .then(response => {
       // Handle success.
-      console.log('csas: ', response.data);
       handleData(response.data)
     })
     .catch(error => {

@@ -1,5 +1,8 @@
 import React from 'react'
+
+import CSAsFilters from '../CSAsFilters'
 import CSAsTable from '../CSAsTable'
+
 const CSAsDisplayer_Desktop = props => {
   const styles = {
     container: {
@@ -10,10 +13,8 @@ const CSAsDisplayer_Desktop = props => {
   }
   return(
     <div style={styles.container}>
-      <div style={{height: 500, background: '#E1E1E1'}}>
-        {props.text.FILTERS}
-        <hr/>
-      </div>
+      <CSAsFilters csas={props.csas}/>
+
       <div>
         <div>Lista de CSAs</div>
         <hr/>

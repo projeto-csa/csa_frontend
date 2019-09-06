@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 
 import CSAListItem from '../../components/CSAListItem'
 import CSAsDisplayerDesktop from '../../components/CSAsDisplayer_Desktop'
@@ -9,28 +8,17 @@ import request from './request.js'
 import text from './text'
 import style from './style'
 
+import { addCSAs, filterCSAs } from '../../actions'
+
 class Csas extends React.Component {
 
-  constructor(){
-    super()
-    this.state = {
-      csas: [],
-      itemClicked: null
-    }
-  }
-
   handleData = (data) => {
-    this.setState({csas: data})
+    this.props.dispatch(addCSAs(data))
+    this.props.dispatch(filterCSAs(data))
   }
 
   componentDidMount(){
     request(this.handleData)
-  }
-
-  handleClick = (csa) => {
-    return () => {
-      this.setState({itemClicked: csa})
-    }
   }
 
   openFilters = () => {
@@ -38,7 +26,7 @@ class Csas extends React.Component {
   }
 
   render(){
-    const { csas } = this.state
+    const csas = this.props.filteredCSAs
     return(
       <div>
         {this.props.screenSize === 'MOBILE' ?
@@ -58,8 +46,6 @@ class Csas extends React.Component {
             {csas ? csas.map((item, index) =>
               <CSAListItem key={index} csa={item}/>)
             : <div>{text.LOADING}</div>}
-
-            { this.state.itemClicked ? <Redirect to={this.state.itemClicked} /> : null }
           </div>
         :
         <CSAsDisplayerDesktop csas={csas} text={text}/>
@@ -71,6 +57,8 @@ class Csas extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    csas: state.csas,
+    filteredCSAs: state.filteredCSAs,
     screenSize: state.screenSize
   }
 }
