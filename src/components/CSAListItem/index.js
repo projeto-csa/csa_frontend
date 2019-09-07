@@ -6,7 +6,7 @@ import style from './style'
 
 const CSAListItem = ({csa, onClick}) => {
 
-  var meetingPoints = csa.meetingpoints.sort( (first, second) => {
+  var meetingPoints = csa.specific.meetingPoints.sort( (first, second) => {
     var firstStartTime = new Date(first.startTime)
     var secondStartTime = new Date(second.startTime)
     return firstStartTime.getDay() < secondStartTime.getDay() })

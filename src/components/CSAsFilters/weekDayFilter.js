@@ -2,25 +2,48 @@ import React from 'react'
 
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import { weekDays } from '../../utils'
 
-export const WeekDayFilterController = (props) => {
-  return(
-    <div>
-      <div className={"title"}>QUANDO</div>
-      <div>Dia do Ponto de Convivência</div>
+export class WeekDayFilterController extends React.Component {
+  constructor(){
+    super()
+    this.state={
+      weekDayChecked: Array(7).fill(false)
+    }
+  }
+
+  handleChange = (day) => (e) =>{
+      var weekDays = this.state.weekDayChecked
+      weekDays[day] = e.target.checked
+      this.setState({weekDayChecked:weekDays})
+      this.props.onFilterChanged({
+        type: "WEEK_DAY",
+        weekDays: this.state.weekDayChecked
+      })
+  }
+
+  render(){
+    return(
       <div>
-        <FormControlLabel control={<Checkbox/>} label={"Segunda"} onClick={props.onFilterChanged}/>
-        <FormControlLabel control={<Checkbox/>} label={"Terça"} onClick={props.onFilterChanged}/>
-        <FormControlLabel control={<Checkbox/>} label={"Quarta"} onClick={props.onFilterChanged}/>
-        <FormControlLabel control={<Checkbox/>} label={"Quinta"} onClick={props.onFilterChanged}/>
-        <FormControlLabel control={<Checkbox/>} label={"Sexta"} onClick={props.onFilterChanged}/>
-        <FormControlLabel control={<Checkbox/>} label={"Sábado"} onClick={props.onFilterChanged}/>
-        <FormControlLabel control={<Checkbox/>} label={"Domingo"} onClick={props.onFilterChanged}/>
+        <div className={"title"}>QUANDO</div>
+        <div>Dia do Ponto de Convivência</div>
+        <div>
+          { weekDays.map((item, index) =>
+            <FormControlLabel
+              key={index}
+              label={item}
+              control={<Checkbox onChange={this.handleChange(index)}/>}/>
+          )}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
-export const weekDayFilterFunction = (csas) => {
-  return csas
+export const weekDayFilterFunction = (csas, data) => {
+  if(data.type !== "WEEK_DAY" || !data.weekDays.reduce((prev, day) => prev || day, false))
+    return csas
+  else{
+    return []
+  }
 }

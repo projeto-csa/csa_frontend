@@ -1,13 +1,26 @@
+export var weekDays = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+
+const roundValue = (toRound, truncation) => {
+  return toRound !== 0 ?
+                 (toRound % truncation === 0 ?
+                    toRound
+                    : toRound + (truncation - (toRound % truncation)) )
+                 : 0
+}
 export const timeFormat = (_startTime, _endTime) => {
-  var weekDays = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]
   var startTime = new Date(_startTime)
   var endTime = new Date(_endTime)
 
-  var result = weekDays[startTime.getDay()-1] + ","
-  result += startTime.getHours()+"h"+
-            (startTime.getMinutes() !== 0 ? startTime.getMinutes() : '')
+  var result = weekDays[startTime.getDay()] + ","
+
+  var startMinutes = roundValue(startTime.getMinutes(), 10)
+  result += (startTime.getHours() + (startMinutes === 60 ? 1 : 0)) + "h"
+  result += (startMinutes === 0 || startMinutes === 60 ? '' : startMinutes)
+
   result += "-"
-  result += endTime.getHours()+"h"+
-            (endTime.getMinutes() !== 0 ? endTime.getMinutes() : '')
+  var endMinutes = roundValue(endTime.getMinutes(), 10)
+  result += (endTime.getHours() + (endMinutes === 60 ? 1 : 0)) + "h"
+  result += (endMinutes === 0 || endMinutes === 60 ? '' : endMinutes)
+
   return result
 }

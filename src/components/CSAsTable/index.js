@@ -21,7 +21,7 @@ const CSAsTable = props => {
       <div>
         { props.csas && props.csas.map((item, index) =>
           <div key={index}>
-            { item.meetingpoints.map((meeting, i) =>
+            { item.specific.meetingPoints && item.specific.meetingPoints.map((meeting, i) =>
               <div style={styles.table} key={i}>
                 <span>
                   <Link to={{pathname: `/csa/${item.id}`, state: item}}>

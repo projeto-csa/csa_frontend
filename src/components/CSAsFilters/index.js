@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { RegionFilterController, regionFilterFunction } from './regionFilter'
+import RegionFilterController, { regionFilterFunction } from './regionFilter'
 import { WeekDayFilterController, weekDayFilterFunction } from './weekDayFilter'
 
 import { filterCSAs } from '../../actions'
@@ -21,8 +21,10 @@ class CSAsFilters extends React.Component{
     }
   }
 
-  onFilterChanged = () => {
-    var csas = this.state.filters.reduce((csas, filter) => csas = filter(csas), this.props.csas)
+  onFilterChanged = (stateData) => {
+    var csas = this.state.filters.reduce((csas, filter) => {
+      return filter(csas, stateData)
+    }, this.props.csas)
     this.props.dispatch(filterCSAs(csas))
   }
 
