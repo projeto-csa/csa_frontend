@@ -44,6 +44,10 @@ export const weekDayFilterFunction = (csas, data) => {
   if(data.type !== "WEEK_DAY" || !data.weekDays.reduce((prev, day) => prev || day, false))
     return csas
   else{
-    return []
+    return csas.filter( csa =>
+                  csa.specific.meetingPoints.
+                  reduce((prev, meetingPoint) => {
+                    var day = new Date(meetingPoint.startTime).getDay()
+                    return data.weekDays[day] || prev}, false))
   }
 }
