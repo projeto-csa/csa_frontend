@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import RegionFilterController, { regionFilterFunction } from './regionFilter'
-import { WeekDayFilterController, weekDayFilterFunction } from './weekDayFilter'
+import WeekDayFilterController, { weekDayFilterFunction } from './weekDayFilter'
 
 import { filterCSAs } from '../../actions'
 
 class CSAsFilters extends React.Component{
-  constructor(){
-    super()
+  constructor(props, context){
+    super(props, context)
     this.state = {
       filters: [
         regionFilterFunction,
@@ -22,9 +22,7 @@ class CSAsFilters extends React.Component{
   }
 
   onFilterChanged = (stateData) => {
-    var csas = this.state.filters.reduce((csas, filter) => {
-      return filter(csas, stateData)
-    }, this.props.csas)
+    var csas = this.state.filters.reduce((csas, filter) => filter(csas, stateData), this.props.csas.csas)
     this.props.dispatch(filterCSAs(csas))
   }
 
@@ -35,12 +33,8 @@ class CSAsFilters extends React.Component{
           Filtros
         </div>
         <hr/>
-        {this.state.filtersControllers.map( (item, index) =>
-          React.cloneElement(item, {
-            key: index,
-            onFilterChanged: this.onFilterChanged
-          }))
-        }
+          <RegionFilterController onFilterChanged={this.onFilterChanged}/>
+          <WeekDayFilterController onFilterChanged={this.onFilterChanged}/>
       </div>
     )
   }

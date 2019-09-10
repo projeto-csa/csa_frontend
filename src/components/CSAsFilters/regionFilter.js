@@ -7,28 +7,33 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
+import { setRegions, toggleRegion } from '../../actions'
+
 class RegionFilterController extends React.Component {
   constructor(props){
     super(props)
-    this.state = {}
+    this.state = {
+
+    }
   }
 
   handleChange = (region) => (e) => {
-    var regionsBools = this.state.regions
+
+    this.props.dispatch(toggleRegion(region))
+
+    var regionsBools = this.props.regions
     regionsBools[region] = e.target.checked
+
+
     this.setState({regions: regionsBools})
     this.props.onFilterChanged({
       type: "REGION",
-      regions: this.state.regions
+      regions: this.props.regions
     })
   }
 
-  static getDerivedStateFromProps(nextProps, prevState){
-    return nextProps.regions && !prevState.regions ? {regions:nextProps.regions} : prevState
-  }
-
   render(){
-    var { regions } = this.state
+    var { regions } = this.props
     return (
       <div>
         <div className={"title"}>ONDE ACONTECE</div>
@@ -40,10 +45,10 @@ class RegionFilterController extends React.Component {
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails style={{display:"block"}}>
-            {regions ? Object.keys(regions).map( item =>
+            {regions ? Object.keys(regions).map( (item, index) =>
               <FormControlLabel
-                key={item}
-                control={<Checkbox onChange={this.handleChange(item)}/>}
+                key={index}
+                control={<Checkbox checked={this.props.regionFilter[item]} onChange={this.handleChange(item)}/>}
                 label={`${item}`}
               />
           ) : <div>Loading...</div>}
@@ -55,15 +60,11 @@ class RegionFilterController extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  var regions = !state.csas ? null :
-                  state.csas.reduce( (prev, csa) => {
-                    var a = csa.specific.meetingPoints.map( meetingPoint => meetingPoint.region )
-                    var filtered = a.filter( element => prev.indexOf(element) < 0)
-                    return [...prev, ...filtered]
-                  }, [])
-  var result = regions ? regions.reduce( (obj, item) => ({...obj, [item]: false}), {} ) : null
+  //TODO: CLEAN THIS MESS
+  var regions = state.csas && state.csas.regions ? state.csas.regions.reduce( (obj, item) => ({...obj, [item]: false}), {} ) : null
   return{
-    regions: result
+    regions: regions,
+    regionFilter: state.visibilityFilter.regionFilter
   }
 }
 export default connect(mapStateToProps)(RegionFilterController)
@@ -74,8 +75,6 @@ export const regionFilterFunction = (csas, data) => {
   else{
     return csas.filter( csa => csa.specific.meetingPoints
                           .reduce((prev, meetingPoint) =>{
-                            console.log("meetingPoint.region:", meetingPoint.region)
-                            console.log("data.regions[meetingPoint.region]:", data.regions[meetingPoint.region])
                             return data.regions[meetingPoint.region] || prev
                           }, false))
   }
