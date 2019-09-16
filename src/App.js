@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import Header from './components/Header'
 import Navbar from './components/Navbar'
 import LocationTitle from './components/LocationTitle'
 import Home from './Pages/Home'
@@ -25,6 +26,7 @@ import PrivateRoute from './components/PrivateRoute'
 import StyleWrapper from './StyleWrapper'
 import screenSizes from './screenSizes'
 import request from './request.js'
+import crops from './images/crops.jpg'
 
 const setUser = (userData) => {
   return {
@@ -83,7 +85,7 @@ class App extends React.Component{
           <Navbar onLogout={this.setUserData} />
           { this.props.screenSize === 'MOBILE' ?
             <LocationTitle title={"LUGAR NO SITE"} />
-            : null
+            : <Header image={crops} title='FÓRUM DE PRÁTICAS EM CSAs'/>
           }
           <StyleWrapper>
             <Route exact path="/" component={Home} />
