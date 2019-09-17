@@ -25,14 +25,17 @@ class RegionFilterController extends React.Component {
     }else{
       return null
     }
-
   }
 
   handleChange = (region) => () => {
     this.props.dispatch(toggleRegion(region))
+
+    var regionFilter = this.props.regionFilter
+    regionFilter[region] = regionFilter[region] ? !regionFilter[region] : true
+
     this.props.onFilterChanged({
       type: "REGION",
-      regions: this.props.regionFilter
+      regions: regionFilter
     })
   }
 
@@ -79,7 +82,6 @@ class RegionFilterController extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  //TODO: CLEAN THIS MESS
   return{
     regions: state.csas ? state.csas.regions : null,
     regionFilter: state.visibilityFilter.regionFilter
