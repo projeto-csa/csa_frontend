@@ -5,7 +5,7 @@ import { weekDays } from '../utils'
 const regionFilter = (state = {}, action) => {
   switch(action.type){
     case 'SET_REGIONS':
-      return action.regions
+      return action.regions ? action.regions.reduce( (obj, item) => ({...obj, [item]: false}), {} ) : {}
     case 'TOGGLE_REGION':
       return {...state, [action.region]: !state[action.region]}
     default:

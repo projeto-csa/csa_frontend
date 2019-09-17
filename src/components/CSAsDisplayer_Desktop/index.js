@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import CSAsFilters from '../CSAsFilters'
 import CSAsTable from '../CSAsTable'
@@ -24,4 +25,10 @@ const CSAsDisplayer_Desktop = props => {
   )
 }
 
-export default CSAsDisplayer_Desktop
+const mapStateToProps = state => {
+  return {
+    csas: state.csas ? state.csas.filtered : undefined,
+  }
+}
+
+export default connect(mapStateToProps)(CSAsDisplayer_Desktop)

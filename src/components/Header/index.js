@@ -14,8 +14,7 @@ const styles = {
       verticalAlign: 'middle',
       margin: 'auto',
       display: 'inline-block',
-      padding: 2,
-      margin: 2
+      padding: 2
     }
   },
   mobile:{

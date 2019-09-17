@@ -6,6 +6,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import Button from '@material-ui/core/Button'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff'
 
 import { setRegions, toggleRegion } from '../../actions'
 
@@ -13,47 +15,64 @@ class RegionFilterController extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-
+      regionFilter: {}
     }
   }
 
-  handleChange = (region) => (e) => {
+  static getDerivedStateFromProps(nextProps, previousState){
+    if(nextProps.regionFilter !== previousState.regionFilter){
+      return { regionFilter: nextProps.regionFilter }
+    }else{
+      return null
+    }
 
+  }
+
+  handleChange = (region) => () => {
     this.props.dispatch(toggleRegion(region))
-
-    var regionsBools = this.props.regions
-    regionsBools[region] = e.target.checked
-
-
-    this.setState({regions: regionsBools})
     this.props.onFilterChanged({
       type: "REGION",
-      regions: this.props.regions
+      regions: this.props.regionFilter
     })
   }
 
   render(){
     var { regions } = this.props
+    var { regionFilter } = this.state
+    console.log('regionFilter in render:', regionFilter)
     return (
       <div>
         <div className={"title"}>ONDE ACONTECE</div>
         <div>Região do Ponto de Convivência</div>
-
+        <div>
+          { regionFilter && Object.keys(regionFilter).map((region, index) =>
+            regionFilter[region] ?
+            <div key={index}>
+              <span>
+                <Button onClick={this.handleChange(region)}><HighlightOffIcon /></Button>
+              </span>
+              <span>{region}</span>
+            </div>
+            : null
+          )}
+        </div>
         <ExpansionPanel style={{boxShadow: "none"}}>
           <ExpansionPanelSummary>
             Selecione uma ou mais regiões
           </ExpansionPanelSummary>
 
           <ExpansionPanelDetails style={{display:"block"}}>
-            {regions ? Object.keys(regions).map( (item, index) =>
+            {regions ? Object.values(regions).map( (region, index) =>
               <FormControlLabel
                 key={index}
-                control={<Checkbox checked={this.props.regionFilter[item]} onChange={this.handleChange(item)}/>}
-                label={`${item}`}
+                label={`${region}`}
+                control={
+                  <Checkbox checked={regionFilter[region] ? regionFilter[region] : false}
+                            onChange={this.handleChange(region)}
+                  />}
               />
           ) : <div>Loading...</div>}
           </ExpansionPanelDetails>
-
         </ExpansionPanel>
       </div>
     )
@@ -61,9 +80,8 @@ class RegionFilterController extends React.Component {
 }
 const mapStateToProps = state => {
   //TODO: CLEAN THIS MESS
-  var regions = state.csas && state.csas.regions ? state.csas.regions.reduce( (obj, item) => ({...obj, [item]: false}), {} ) : null
   return{
-    regions: regions,
+    regions: state.csas ? state.csas.regions : null,
     regionFilter: state.visibilityFilter.regionFilter
   }
 }

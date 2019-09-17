@@ -13,10 +13,6 @@ class CSAsFilters extends React.Component{
       filters: [
         regionFilterFunction,
         weekDayFilterFunction
-      ],
-      filtersControllers: [
-        <RegionFilterController />,
-        <WeekDayFilterController />
       ]
     }
   }
@@ -43,7 +39,8 @@ class CSAsFilters extends React.Component{
 const mapStateToProps = state => {
   return {
     csas: state.csas,
-    filteredCSAs: state.filteredCSAs
+    filteredCSAs: state.filteredCSAs,
+    visibilityFilter: state.visibilityFilter
   }
 }
 export default connect(mapStateToProps)(CSAsFilters)

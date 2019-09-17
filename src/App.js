@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import Header from './components/Header'
 import Navbar from './components/Navbar'
-import LocationTitle from './components/LocationTitle'
 import Home from './Pages/Home'
 import TestPage from './Pages/TestPage'
 import Topics from './Pages/Topics'
@@ -38,7 +37,6 @@ const setUser = (userData) => {
 const setVersion = (version) => {
   version = version ? version
             : window.innerWidth <= screenSizes.mobileMaxWidth ? 'MOBILE' : 'DESKTOP'
-
   return {
     type: 'SCREEN_SIZE',
     screenSize: version
@@ -84,7 +82,7 @@ class App extends React.Component{
         <div className="App">
           <Navbar onLogout={this.setUserData} />
           <Header presentation={this.props.screenSize} image={crops} title='FÓRUM DE PRÁTICAS EM CSAs'/>
-          
+
           <StyleWrapper>
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
