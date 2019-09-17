@@ -83,10 +83,8 @@ class App extends React.Component{
       <Router>
         <div className="App">
           <Navbar onLogout={this.setUserData} />
-          { this.props.screenSize === 'MOBILE' ?
-            <LocationTitle title={"LUGAR NO SITE"} />
-            : <Header image={crops} title='FÓRUM DE PRÁTICAS EM CSAs'/>
-          }
+          <Header presentation={this.props.screenSize} image={crops} title='FÓRUM DE PRÁTICAS EM CSAs'/>
+          
           <StyleWrapper>
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
