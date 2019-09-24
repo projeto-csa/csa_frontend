@@ -5,10 +5,18 @@ import { Redirect } from 'react-router-dom'
 
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 
 import TopicListItem from '../../components/TopicListItem'
 
+const styles = {
+  button:{
+    margin: 'auto',
+    marginTop: 30,
+    marginBottom: 30
+  }
+}
 class Topics extends React.Component {
 
   constructor(props){
@@ -36,19 +44,17 @@ class Topics extends React.Component {
 
   render(){
     const { topics } = this.state
+    console.log('topics:', topics)
     return(
       <div>
-        <List>
           { topics ?
             this.state.topics.map((item, index) =>
-              <ListItem button key={index}
-                onClick={this.handleClick({pathname: `/topico/${item._id}`, state: item })}>
-                  <TopicListItem topic={item}/>
-              </ListItem>
+              <TopicListItem topic={item} key={index}/>
           ) : null}
-        </List>
         { this.props.user ?
-          <Button onClick={this.newTopic}>Novo tópico</Button>
+          <Paper className='buttonPrimary' style={styles.button}>
+            <Button onClick={this.newTopic}>NOVA CONVERSA</Button>
+          </Paper>
           : null
         }
         {this.state.newTopic ? <Redirect to={{pathname: '/topicCreation', state: this.props.routine}} /> : null }

@@ -9,7 +9,7 @@ const links = {
   },
   PRACTICES:{
     text: "Práticas",
-    link: "rotinas"
+    link: "/rotinas"
   },
   TOPICS: {
     text:"Conversas",

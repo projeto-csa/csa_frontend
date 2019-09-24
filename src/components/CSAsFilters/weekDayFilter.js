@@ -32,7 +32,7 @@ class WeekDayFilterController extends React.Component {
   render(){
     return(
       <div>
-        <div className={"title"}>QUANDO</div>
+        <div className={"title-medium"}>QUANDO</div>
         <div>Dia do Ponto de Convivência</div>
         <div>
           { weekDays.map((item, index) =>

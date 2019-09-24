@@ -18,6 +18,7 @@ class CSAsFilters extends React.Component{
   }
 
   onFilterChanged = (stateData) => {
+    console.log('visibilityFilter:', this.props.visibilityFilter)
     var csas = this.state.filters.reduce((csas, filter) => filter(csas, stateData), this.props.csas.csas)
     this.props.dispatch(filterCSAs(csas))
   }

@@ -1,4 +1,9 @@
 import React from 'react'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import Paper from '@material-ui/core/Paper'
+
+import PostOwner from '../PostOwner'
 
 class ResponseForm extends React.Component {
   constructor(){
@@ -13,7 +18,11 @@ class ResponseForm extends React.Component {
     this.setState({message: e.target.value})
   }
 
-  onClick = () => {
+  toggleReply = () => {
+    this.setState({textField: !this.state.textField})
+  }
+
+  sendReply = () => {
       this.props.onClick(
         {
           user: localStorage.getItem('user'),
@@ -26,10 +35,16 @@ class ResponseForm extends React.Component {
 
   render(){
     return(
-      <div className='ResponseForm'>
-        <div>Sua resposta:</div>
-        <input type='text' onChange={this.handleChange} value={this.state.message}/>
-        <input type='submit' onClick={this.onClick} value='Enviar'/>
+      <div>
+        <div className={'title-small'}>Meu comentário</div>
+        <PostOwner user={this.props.user} />
+        <TextField fullWidth multiline/>
+        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+          <Button onClick={this.props.onCancel}>CANCELAR</Button>
+          <Paper className='buttonPrimary'>
+            <Button onClick={this.sendReply}>ENVIAR</Button>
+          </Paper>
+        </div>
       </div>
     )
   }

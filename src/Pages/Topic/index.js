@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import Response from '../../components/Response'
@@ -35,20 +36,24 @@ class Topic extends React.Component {
   render(){
     const { topic } = this.state
     const loggedUserId = localStorage.getItem('user')
+    console.log('conversa:', topic)
     return(
       <div className='Topic'>
         { topic ?
           <div>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-            }} >
-              <span>Rotinas relacionadas</span>
+            <div>
+              <div>
+                <div className={'title-small'}>Práticas relacionadas</div>
+                <div>
+                  {topic.routines.map((item, index) =>
+                    <Link key={index} to={`/rotina/${item.id}`}>{index > 0? ' | ' : ''}{item.name}</Link>
+                  )}
+                </div>
+              </div>
               <ToggleInterested userId={loggedUserId} topic={topic} afterFetch={this.handleData} />
             </div>
-            {topic.routines.map((item, index) => <Link key={index} to={`/rotina/${item.id}`}>{item.name}</Link>)}
 
-            <h1>{topic.title}</h1>
+            <div className={'title-big'}>{topic.title}</div>
             <PostOwner user={topic.creator} createdAt={topic.createdAt}/>
 
             <div>{topic.description}</div>
@@ -66,7 +71,7 @@ class Topic extends React.Component {
                 onClick={answerRequest}
                 topic={topic._id}
                 newAnswer={this.handleData}
-                // newAnswer={this.newAnswer}
+                newAnswer={this.newAnswer}
               />
               : null
             }
@@ -77,4 +82,10 @@ class Topic extends React.Component {
   }
 }
 
-export default Topic
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Topic)

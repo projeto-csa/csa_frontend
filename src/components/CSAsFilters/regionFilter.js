@@ -21,6 +21,7 @@ class RegionFilterController extends React.Component {
 
   static getDerivedStateFromProps(nextProps, previousState){
     if(nextProps.regionFilter !== previousState.regionFilter){
+      console.log('regionFilter props to state')
       return { regionFilter: nextProps.regionFilter }
     }else{
       return null
@@ -30,22 +31,23 @@ class RegionFilterController extends React.Component {
   handleChange = (region) => () => {
     this.props.dispatch(toggleRegion(region))
 
-    var regionFilter = this.props.regionFilter
-    regionFilter[region] = regionFilter[region] ? !regionFilter[region] : true
+    this.props.regionFilter[region] = this.props.regionFilter[region] ?
+                                      !this.props.regionFilter[region] : true
 
+    console.log('regionFilter:', this.props.regionFilter)
     this.props.onFilterChanged({
       type: "REGION",
-      regions: regionFilter
+      regions: this.props.regionFilter
     })
   }
 
   render(){
     var { regions } = this.props
     var { regionFilter } = this.state
-    console.log('regionFilter in render:', regionFilter)
+
     return (
       <div>
-        <div className={"title"}>ONDE ACONTECE</div>
+        <div className={"title-medium"}>ONDE ACONTECE</div>
         <div>Região do Ponto de Convivência</div>
         <div>
           { regionFilter && Object.keys(regionFilter).map((region, index) =>
@@ -82,6 +84,7 @@ class RegionFilterController extends React.Component {
   }
 }
 const mapStateToProps = state => {
+  console.log('receiving new regionFilter')
   return{
     regions: state.csas ? state.csas.regions : null,
     regionFilter: state.visibilityFilter.regionFilter

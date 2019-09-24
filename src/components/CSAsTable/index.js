@@ -13,9 +13,9 @@ const CSAsTable = props => {
   return(
     <div>
       <div style={styles.table}>
-        <span className={"title"}>{props.text.CSAs}</span>
-        <span className={"title"}>{props.text.WHERE_HEADER}</span>
-        <span className={"title"}>{props.text.WHEN_HEADER}</span>
+        <span className={"title-medium"}>{props.text.CSAs}</span>
+        <span className={"title-medium"}>{props.text.WHERE_HEADER}</span>
+        <span className={"title-medium"}>{props.text.WHEN_HEADER}</span>
       </div>
       <hr/>
       <div>

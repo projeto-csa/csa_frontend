@@ -1,10 +1,20 @@
 import React from 'react'
-const Home = () => {
-  return(
-    <div>
-      <h1>Aqui é a Home!</h1>
-    </div>
-  )
+import { connect } from 'react-redux'
+import { setLocation } from '../../actions'
+
+class Home extends React.Component {
+  constructor(props){
+    super(props)
+    props.dispatch(setLocation('Home'))
+  }
+  
+  render(){
+    return(
+      <div>
+        <h1>Aqui é a Home!</h1>
+      </div>
+    )
+  }
 }
 
-export default Home
+export default connect()(Home)

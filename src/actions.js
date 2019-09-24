@@ -31,3 +31,10 @@ export const toggleRegion = (region) => {
     region: region
   }
 }
+
+export const setLocation = (location) => {
+  return{
+    type: "SET_APP_LOCATION",
+    location: location
+  }
+}

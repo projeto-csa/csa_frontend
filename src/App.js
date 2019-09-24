@@ -55,7 +55,6 @@ class App extends React.Component{
   }
 
   componentDidMount(){
-
     window.addEventListener("resize", this.setWindowSize)
   }
 
@@ -81,8 +80,7 @@ class App extends React.Component{
       <Router>
         <div className="App">
           <Navbar onLogout={this.setUserData} />
-          <Header presentation={this.props.screenSize} image={crops} title='FÓRUM DE PRÁTICAS EM CSAs'/>
-
+          <Header presentation={this.props.screenSize} image={crops} title={this.props.location}/>
           <StyleWrapper>
             <Route exact path="/" component={Home} />
             <Route exact path="/testPage" component={TestPage} />
@@ -116,6 +114,7 @@ class App extends React.Component{
 const mapStateToProps = (state) => {
   return {
     screenSize: state.screenSize,
+    location: state.location,
     user: state.user
   }
 }

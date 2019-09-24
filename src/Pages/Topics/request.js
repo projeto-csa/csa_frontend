@@ -9,7 +9,6 @@ const requestData = (handleData) => {
     })
     .then(response => {
       // Handle success.
-      console.log('topics: ', response.data);
       handleData(response.data)
     })
     .catch(error => {

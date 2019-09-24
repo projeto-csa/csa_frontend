@@ -26,6 +26,7 @@ const styles = {
       paddingLeft: "16px"
   }
 }
+
 const Header = ({presentation, title, image, child}) => {
   styles.desktop.body = image ? { ...styles.desktop.body, backgroundImage: `url(${image})` } : styles.desktop.body
 
